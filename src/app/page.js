@@ -1,94 +1,191 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import NavBar from "@/components/custom/NavBar";
+
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div>
+      <NavBar/>
+      <main style={{
+        background:useColorModeValue('rgb(240 240 240)', '#212121'),
+        padding:'30px 30px'
+      }}>
+        0 . Which of these is not applicable to the friend function? 
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyw0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."0 . Which of these is not applicable to the friend function? 
+
+It allows a function declared outside a class to access the private and protected members of that class
+The "friend" keyword is used with the function inside the class
+It can only be used to access class members which are private and not protected
+Friend function is the reason C++ is not known as a pure object oriented language
+ChatGPT said:
+ChatGPT
+The statement "It can only be used to access class members which are private and not protected" is not applicable to a friend function.
+
+Here's why:
+A friend function can access both private and protected members of a class, not just private members. The purpose of a friend function is to allow an external function (or another class) to have access to the private and protected members of a class, bypassing the usual access control.
+Explanation of other options:
+"It allows a function declared outside a class to access the private and protected members of that class": This is true. Friend functions provide external access to a class’s private and protected members.
+
+"The 'friend' keyword is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."ord is used with the function inside the class": This is also true. The friend keyword is declared inside the class to make the external function a friend of the class, even though the function itself is defined outside the class.
+
+"Friend function is the reason C++ is not known as a pure object-oriented language": This is true in a sense, as the use of friend functions allows breaking the strict encapsulation principle of object-oriented programming. It allows external functions to access private data, which is typically not allowed in pure OOP.
+
+Thus, the correct answer is: "It can only be used to access class members which are private and not protected."
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer>
+        footer
       </footer>
     </div>
   );

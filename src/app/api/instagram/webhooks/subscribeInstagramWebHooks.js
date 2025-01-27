@@ -8,7 +8,7 @@ const subscribeInstagramWebHooks = async (accessToken)=> {
       `https://graph.facebook.com/v17.0/${appId}/subscriptions`,
       {
         object: "instagram",
-        callback_url: "https://6ac3-223-185-47-154.ngrok-free.app/api/instagram/webhooks",
+        callback_url: " https://bca8-223-185-47-154.ngrok-free.app/api/instagram/webhooks",
         fields: "comments,mentions,story_insights,messages",
         verify_token: process.env.NEXT_WEBHOOK_TOKEN,
       },

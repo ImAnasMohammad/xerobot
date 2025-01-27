@@ -25,8 +25,8 @@ const page = () => {
 
     const getDetails = async ()=>{
         try{
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/instagram/getDetails?id=${id}`);
-            const {data,message} = res.data;
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/socialAccounts?id=${id}`);
+            const {data,message=null} = res.data;
             console.log(data)
             if(message===null){
                 setImg(data.profilePicture);

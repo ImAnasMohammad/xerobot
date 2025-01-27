@@ -1,7 +1,7 @@
 
 
 import axios from "axios";
-const facebookAuthUrl = `https://www.facebook.com/v17.0/dialog/oauth?client_id=${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_FACEBOOK_REDIRECT_URI}&scope=${process.env.NEXT_PUBLIC_PERMISSIONS}`;
+const instagramUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_APP_DOMAIN}/${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
 const width = 600;
 const height = 700;
 
@@ -11,9 +11,9 @@ const handleInstagramLogin = () => {
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
     const popupStr = `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=yes,status=no`;
-
+    console.log(instagramUrl)
     // window.open(facebookAuthUrl,"Instagram Login");
-    window.location.href=facebookAuthUrl
+    window.location.href=instagramUrl
     
 
     // const interval = setInterval(async () => {

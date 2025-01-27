@@ -3,7 +3,7 @@ import axios from "axios";
 
 async function getInstagramMedia(id,access_token) {
     try{
-        const mediaResponse = await axios.get(`${process.env.NEXT_PUBLIC_GRAPH_API_URL}/${id}/media`, {
+        const mediaResponse = await axios.get(`${process.env.NEXT_PUBLIC_GRAPH_INSTAGRAM_URL}/${id}/media`, {
             params: {
                 access_token,
                 fields: "fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp",
@@ -25,7 +25,7 @@ async function getInstagramMedia(id,access_token) {
     }catch(err){
         return {
             success:false,
-            message:err?.message,
+            message:err?.response?.data?.error?.message ?? err?.message ?? 'Something went wrong',
             status:err?.status ?? 500
         }
     }

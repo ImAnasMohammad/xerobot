@@ -15,7 +15,7 @@ const AutomationAccounts = ({ selectedAccountId, handleClick }) => {
 
   const getAccountDetails =async ()=>{
     try{
-      const res = await axios.get(`/api/instagram/getDetails/accounts`);
+      const res = await axios.get(`/api/socialAccounts/getAll`);
 
       if(!res?.data?.data){
         toast.error(res?.data?.message ?? "Something went wrong.")

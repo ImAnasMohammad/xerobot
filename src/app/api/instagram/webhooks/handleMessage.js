@@ -1,4 +1,4 @@
-import { success } from "../webhookResponse";
+import { success } from "./webhookResponse";
 
 
 

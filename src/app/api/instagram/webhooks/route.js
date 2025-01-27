@@ -1,6 +1,6 @@
 
 
-import Instagram from "./Instagram/Instagram";
+import Instagram from "./Instagram";
 import { failed } from "./webhookResponse";
 const verifyToken = process.env.NEXT_WEBHOOK_TOKEN;
 

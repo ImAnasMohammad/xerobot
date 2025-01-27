@@ -8,6 +8,8 @@ import InputForAutomation, { SwitchForAutomation } from './InputForAutomation';
 const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, loading }) => {
   const { bgShadedDark } = useColors();
 
+  const tempTriggers = ['Link','DM','Send','Join','Details'];
+
   const handleValue = (name, value) => {
     let tempData = { ...automationData };
     tempData[name] = value
@@ -26,15 +28,39 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
       maxWidth={'600px'}
     >
       <Flex width={'100%'} justifyContent={'space-between'}>
-        <Button fontSize={'md'} style={{ letterSpacing: '.5px' }} width={'90px'} variant='outline'>Back</Button>
+        <Button fontSize={'md'} style={{ letterSpacing: '.5px' }} width={'90px'} variant='outline' disabled={loading} >Back</Button>
         <Button
           fontSize={'md'}
           style={{ letterSpacing: '.5px' }}
-          width={'90px'}
           loading={loading}
           disabled={loading}
           onClick={handleSubmit}
-        >Live</Button>
+        >Set to live</Button>
+      </Flex>
+      <Flex pt={14} flexDir={'column'} gap={5}>
+        <Box>
+          <InputForAutomation
+            heading={'Enter Trigger'}
+            name="trigger"
+            value={automationData['trigger']}
+            handleValue={handleValue}
+            placeholder='Enter your trigger here...'
+            disabled={loading}
+            type='input'
+          />
+        </Box>
+        <Flex gap={5}>
+          {
+            tempTriggers.map(item=><Button
+              variant='outline'
+              style={{borderRadius:'10px'}}
+              onClick={()=>handleValue('trigger',item)}
+              key={item}
+            >
+              {item}
+            </Button>)
+          }
+        </Flex>
       </Flex>
       <Flex pt={14} flexDir={'column'} gap={10}>
         <Text fontSize={'lg'}>They’ll receive the DM including links</Text>
@@ -50,8 +76,8 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
           />
           <InputForAutomation
             heading={'Enter Direct Message'}
-            name="message"
-            value={automationData['message']}
+            name="direactMessage"
+            value={automationData['direactMessage']}
             handleValue={handleValue}
             placeholder='Enter your message here...'
             disabled={loading}

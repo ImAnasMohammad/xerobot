@@ -1,4 +1,4 @@
-import { success } from "../webhookResponse";
+import { success } from "./webhookResponse";
 
 const handleMention = (data)=>{
     console.log("handle Mention",data)

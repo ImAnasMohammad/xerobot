@@ -1,4 +1,4 @@
-import Heading from '@/app/dashboard/accounts/addAccount/[platform.jsx]/Heading'
+import Heading from '@/app/dashboard/accounts/addAccount/instagram/Heading'
 import PostSkeleton from '@/components/custom/PostSkeleton'
 import { useColorModeValue } from '@/components/ui/color-mode'
 import useColors from '@/hooks/useColors'
@@ -49,7 +49,8 @@ const MyPosts = ({handleSelectPost,selectedPost,id})=>{
             if(res?.data?.message){
                 setStatus({...status,error:res.data.message});
             }else{
-                setPosts(res?.data?.data?.media)
+                console.log(res?.data)
+                setPosts(res?.data?.data)
             }
         }catch(err){
             setStatus({...status,error:err.message});
@@ -73,6 +74,9 @@ const MyPosts = ({handleSelectPost,selectedPost,id})=>{
                 py={5}
                 gap={5}
             >
+                {
+                    console.log(posts)
+                }
                 {
                     status?.loading ? arr.map(post=><PostSkeleton key={post} height={'70px'} width='107px'/>):
                     !status?.error && posts?.map(post=><Post key={post?.id} post={post} handleSelectPost={handleSelectPost} isSelected={selectedPost?.id==post?.id} />)

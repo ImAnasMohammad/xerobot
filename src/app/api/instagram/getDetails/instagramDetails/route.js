@@ -1,5 +1,5 @@
 import sendResponse from "@/utils/sendResponse";
-import fetchAccessToken from "../../auth/fetchAccessToken";
+import fetchAccessToken from "../../../socialAccounts/fetchAccessToken";
 import getInstagramDetails from "./getInstagraDetails";
 
 

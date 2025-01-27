@@ -29,19 +29,15 @@ const socialMediaAccountSchema = new mongoose.Schema({
   },
   accountType: {
     type: String,
-    enum: ['Personal', 'Business', 'Creator'],
+    enum: ['Personal', 'BUSINESS', 'CREATOR'],
   },
   accessKey:{
     type: String,
     required: true,
   },
   streamId:{ type: String },
-  facebookId:{type:String,default:null},
-  tokenType: {
-    type: String,
-    default:''
-  },
   isCompleted:{type:Boolean},
+  isActive:{type:Boolean},
   createdAt: {
     type: Date,
     default: Date.now,

@@ -23,7 +23,7 @@ const AccountProfile = ({user}) => {
           <Stack gap="0">
             <Text
               fontWeight="medium"
-              width={'100px'}
+              width={'150px'}
               textOverflow={'ellipsis'}
               overflow={'hidden'}
               whiteSpace={'nowrap'}

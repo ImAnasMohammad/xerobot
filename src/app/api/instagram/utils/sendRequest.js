@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const 
-
-sendPost = async (url,payload,accessToken) => {
+const sendPost = async (url,payload,accessToken) => {
     try {
         const response = await axios.post(url, payload, {
             headers:{

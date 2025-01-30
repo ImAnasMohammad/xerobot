@@ -6,11 +6,16 @@ const buttonSchema = new mongoose.Schema({
 });
 
 const AutomationSchema = new mongoose.Schema({
-  // userId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: true,
-  //   ref: 'User', // Reference to the user who owns this account
-  // },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
+  accountId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'SocialMediaAccounts',
+  },
   mediaId: {
     type: String,
     required: true,
@@ -19,10 +24,6 @@ const AutomationSchema = new mongoose.Schema({
   trigger: {
     type: String,
     required: true,
-  },
-  accountId: {
-    type: String,
-    //required: true,
   },
   commentReply: {
     type: String,

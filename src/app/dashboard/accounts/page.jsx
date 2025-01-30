@@ -6,11 +6,11 @@ import { Box, Button, Flex } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import useColors from '@/hooks/useColors';
 import { Plus } from 'lucide-react';
-import AccountProfile from '@/components/custom/Account/AccountProfile';
 import AccountTable from '@/components/custom/Account/AccountsTable';
 import AccountDailog from '@/components/custom/dailog/AccountsDailog';
 import AccountsTypes from '@/components/custom/Account/AccountsTypes';
 import {handleInstagramLogin} from '@/utils/handleInstagramLogin'
+import showErrorsInUrl from '@/utils/showErrorsInURL';
 
 const page = () => {
   const {mainColor,textDark} = useColors();
@@ -18,8 +18,7 @@ const page = () => {
   const [open,setOpen] = useState(false);
   const [selectedAccountType,setSelectedAccountType]=useState('');
   const [accountLinkLoading,setAccountLinkLoading]= useState(false);
-  const [error,setError] = useState('');
-  const [newAccount,setNewAccount] = useState(null);
+  const urlError = showErrorsInUrl();
 
   const handleCloseAccountDailog = ()=>{
     setAccountLinkLoading(false);
@@ -29,9 +28,8 @@ const page = () => {
 
   const handleLinkClick = ()=>{
     setAccountLinkLoading(true);
-    if(selectedAccountType=='Instagram'){
-      handleInstagramLogin(setError,setAccountLinkLoading,setNewAccount)
-    }
+    const instagramUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_APP_DOMAIN}/${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
+    window.location.href=instagramUrl
   }
   return (
     <Box px={7} py={10}>
@@ -42,7 +40,7 @@ const page = () => {
             <Plus />Add Account
           </Button>
         </Flex>
-        <AccountTable/>
+        <AccountTable search={search}/>
         <AccountDailog 
           open={open} 
           setOpen={setOpen} 
@@ -52,7 +50,6 @@ const page = () => {
           loading={accountLinkLoading}
           handleClick={handleLinkClick}
           handleClose={handleCloseAccountDailog}
-          
         >
           <AccountsTypes loading={accountLinkLoading} value={selectedAccountType} setValue={setSelectedAccountType}/>
         </AccountDailog>

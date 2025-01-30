@@ -1,16 +1,40 @@
-import { Table } from "@chakra-ui/react"
+import { Flex, Table, Text } from "@chakra-ui/react"
 import AccountProfile from "./AccountProfile"
 import AccountActions from "./AccountActions"
 import AccountRemove from "../dailog/AccountRemove"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { sendGet } from "@/utils/sendRequest"
+import { Spinner } from "@chakra-ui/react"
 
-const AccountTable = () => {
+
+const AccountTable = ({search=''}) => {
 
   const [open,setOpen]= useState(false);
+  const [accounts,setAccounts]=useState([]);
+  const [loading,setLoading] = useState(true);
 
-  const handleClick = (id) => {
-    console.log(id)
+  const handleClick = (id,action) => {
+    console.log(id,action);
   }
+
+  const getAccountDetails = async()=>{
+    const accountDetails =await sendGet({url:`/api/socialAccounts/accounts?search=${search}`});
+
+    setAccounts(accountDetails?.accounts);
+    setLoading(false);
+  }
+
+  useEffect(()=>{
+    getAccountDetails();
+  },[]);
+
+
+  useEffect(() => {
+    setLoading(true);
+    const delayDebounce = setTimeout(getAccountDetails, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [search]);
 
   return (
     <>
@@ -29,37 +53,53 @@ const AccountTable = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {accounts.map((account) => (
-              <Table.Row key={account.id}>
-                <Table.Cell py={7} px={7}>
-                  <AccountProfile user={{ ...account, email: account.userName }} />
-                </Table.Cell>
-                <Table.Cell>
-                  {
-                    account?.automations
-                  }
-                </Table.Cell>
-                <Table.Cell>
-                  <AccountActions
-                    handleRemove={()=>setOpen(account.id)}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            ))}
+            {
+              !loading&&accounts.map(account =><TableRow key={account?._id} account={account} handleClick={handleClick} setOpen={setOpen}/>)
+            }
           </Table.Body>
         </Table.Root>
       </Table.ScrollArea>
+      {
+        loading && <Flex justifyContent={'center'} mt={20}>
+          <Spinner size="md" />
+        </Flex>
+      }
+      {
+        !loading && accounts?.length<=0 && <Flex justifyContent={'center'} mt={20}>
+          <Text>No Accounts Found</Text>
+        </Flex>
+      }
     </>
   )
 }
 
-const accounts = [
-  { id: 1, automations: 100000, userName: 'user_name', name: "John Mason", accountType: 'Youtube', avatar: "https://i.pravatar.cc/300?u=iu", },
-  { id: 2, automations: 10, userName: 'user_name', name: "Coffee Maker", accountType: "Whatsapp", avatar: "https://i.pravatar.cc/300?u=iu", },
-  { id: 3, automations: 10, userName: 'user_name', name: "Desk Chair", accountType: "Facebook", avatar: "https://i.pravatar.cc/300?u=iu", },
-  { id: 4, automations: 10, userName: 'user_name', name: "Smartphone", accountType: "Instagram", avatar: "https://i.pravatar.cc/300?u=iu", },
-  { id: 5, automations: 10, userName: 'user_name', name: "Headphones", accountType: "Instagram", avatar: "https://i.pravatar.cc/300?u=iu", },
-]
+const TableRow = ({account,setOpen,handleClick})=>{
+
+  const {accountName,platform,accountUserName,automationCount,accountProfile,_id:id} = account;
+  return <Table.Row>
+  <Table.Cell py={7} px={7}>
+    <AccountProfile user={{
+      email:accountName,
+      accountType:platform,
+      name:accountUserName,
+      profile:accountProfile
+    }} />
+  </Table.Cell>
+  <Table.Cell>
+    {
+      automationCount
+    }
+  </Table.Cell>
+  <Table.Cell>
+    <AccountActions
+      handleRemove={()=>setOpen(id)}
+      handlePause={()=>handleClick(id,'PAUSE')}
+      handleRegenerate={()=>handleClick(id,'REGENERATE')}
+      handleResume={()=>handleClick(id,'RESUME')}
+    />
+  </Table.Cell>
+</Table.Row>
+}
 
 
 export default AccountTable

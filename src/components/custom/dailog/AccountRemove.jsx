@@ -27,7 +27,7 @@ const AccountRemove = ({open=false,setOpen,handleClick}) => {
           <DialogActionTrigger asChild>
             <Button variant="outline" onClick={()=>setOpen(false)}>Cancel</Button>
           </DialogActionTrigger>
-          <Button colorPalette="red" onClick={()=>handleClick(open)}>Delete</Button>
+          <Button colorPalette="red" onClick={()=>handleClick(open,"DELETE")}>Delete</Button>
         </DialogFooter>
         <DialogCloseTrigger />
       </DialogContent>

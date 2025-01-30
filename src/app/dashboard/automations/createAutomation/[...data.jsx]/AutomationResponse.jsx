@@ -16,7 +16,7 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
     setAutomationData(tempData);
   }
   return (
-    <Box
+    <Flex
       as={'div'}
       flex={1}
       height={'100%'}
@@ -26,18 +26,11 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
       border={`1px solid ${useColorModeValue('#0000', bgShadedDark)}`}
       overflow={'auto'}
       maxWidth={'600px'}
+      flexDirection={'column'}
+      gap={10}
     >
-      <Flex width={'100%'} justifyContent={'space-between'}>
-        <Button fontSize={'md'} style={{ letterSpacing: '.5px' }} width={'90px'} variant='outline' disabled={loading} >Back</Button>
-        <Button
-          fontSize={'md'}
-          style={{ letterSpacing: '.5px' }}
-          loading={loading}
-          disabled={loading}
-          onClick={handleSubmit}
-        >Set to live</Button>
-      </Flex>
-      <Flex pt={14} flexDir={'column'} gap={5}>
+      <PoliteRemidnerMessage/>
+      <Flex  flexDir={'column'} gap={5}>
         <Box>
           <InputForAutomation
             heading={'Enter Trigger'}
@@ -101,7 +94,7 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
           // placeholder='Enter your Link label...'
           />
         </Flex>
-        <Box as={'div'} >
+        {/* <Box as={'div'} >
           <SwitchForAutomation
             value={automationData?.askToFollow}
             heading={'Ask to Follow to receive the link'}
@@ -112,10 +105,37 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
           {
             automationData?.askToFollow && <InputForAutomation value={automationData['initialMessage']} handleValue={handleValue} name="initialMessage" heading={"Initial message they'll get"} disabled={loading}/>
           }
-        </Box>
+        </Box> */}
       </Flex>
-    </Box>
+      
+      <ButtonSection loading={loading} handleSubmit={handleSubmit}/>
+    </Flex>
   )
 }
 
+
+const PoliteRemidnerMessage = ()=>{
+  const {textUltraShadedDark} = useColors();
+  return <Box>
+    <Text fontSize={'md'} fontWeight={'bold'}>✨ Friendly Reminder:</Text>
+    <Text fontSize={'sm'} mt={2} color={useColorModeValue('red',textUltraShadedDark)}>
+      Please ensure that your messages are polite, respectful, and professional. 🙏
+      Also, kindly review and comply with Instagram’s Privacy Policy & Community Guidelines to ensure a seamless experience. ✅
+      Happy Automating! 🚀
+    </Text>
+  </Box>
+}
+
+const ButtonSection = ({loading,handleSubmit})=>{
+  return<Flex width={'100%'} justifyContent={'space-between'}>
+  <Button fontSize={'md'} style={{ letterSpacing: '.5px' }} width={'90px'} variant='outline' disabled={loading} >Back</Button>
+  <Button
+    fontSize={'md'}
+    style={{ letterSpacing: '.5px' }}
+    loading={loading}
+    disabled={loading}
+    onClick={handleSubmit}
+  >Set to live</Button>
+</Flex>
+}
 export default AutomationResponse;

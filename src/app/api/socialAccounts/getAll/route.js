@@ -1,12 +1,20 @@
 import connectDB from "@/components/connections/db.connection";
 import SocialMediaAccounts from "@/models/SocialMediaAccounts";
+import getCookie from "@/utils/cookies/getCookie";
 import sendResponse from "@/utils/sendResponse";
+import { redirect } from "next/dist/server/api-utils";
 
 
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
-        // const id = searchParams.get("id");
+
+        const user = await getCookie(req);
+        const id = user?.data?.payload?.id;
+        
+        if(!id){
+            return redirect('/login')
+        }
         let fields = searchParams.get("fields") ?? '';
         fields +=',accountProfile,accountUserName';
         fields = fields.split(',').filter(item=>item!=='');

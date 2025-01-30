@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const socialMediaAccountSchema = new mongoose.Schema({
-  // userId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: true,
-  //   ref: 'User', // Reference to the user who owns this account
-  // },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
   accountId: {
     type: String,
     required: true,

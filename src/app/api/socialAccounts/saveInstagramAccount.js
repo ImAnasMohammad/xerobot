@@ -11,12 +11,14 @@ const saveInstagramAccount = async (details) => {
       id,
       account_type,
       user_id,
-      accessToken
+      accessToken,
+      userId
     } = details;
     const newOrUpdateAccount = await SocialMediaAccounts.findOneAndUpdate(
       { accountId: id },
       {
         $set: {
+          userId,
           accountId: id,
           accountName: name,
           accountUserName: username,

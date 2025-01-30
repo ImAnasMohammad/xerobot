@@ -1,5 +1,6 @@
 import connectDB from "@/components/connections/db.connection";
 import Automations from "@/models/Automation";
+import getCookie from "@/utils/cookies/getCookie";
 import sendResponse from "@/utils/sendResponse";
 
 export async function POST(req){
@@ -12,15 +13,15 @@ export async function POST(req){
         'direactMessage','askToFollow',
         'initialMessage','url','label',
         'commentCount','replyCount','isLive',
-        'createdAt','updatedAt'
+        'createdAt','updatedAt','accountId'
     ];
 
     let anyErrorsInFields = false;
-    console.log(body)
 
     for(let key in body){
         if(!fields?.includes(key)){
             anyErrorsInFields = key;
+            break;
         }
     }
 
@@ -29,6 +30,14 @@ export async function POST(req){
     }
 
     try{
+
+        const user = await getCookie(req);
+
+        if(!user?.success){
+            return sendResponse({status:403,message:'Please relogin.'});
+        }
+
+        const userId = user?.data?.payload?.id;
 
         const  {
             commentReply,
@@ -50,12 +59,12 @@ export async function POST(req){
         
         let buttons = []
         if(url){
-            buttons.push({url,label:label??url});
+            buttons.push({url,label:label||url});
         }
 
         connectDB()
 
-        const newAutomaion = Automations({...body,buttons,trigger:trigger?.toLowerCase()});
+        const newAutomaion = Automations({...body,buttons,trigger:trigger?.toLowerCase(),userId});
 
         await newAutomaion.save();
 
@@ -65,8 +74,9 @@ export async function POST(req){
         return sendResponse({message:'Something went worong.'})
 
     }catch(err){
+        console.log(err)
         if( err?.code===11000 ) return sendResponse({status:409,message:'Automation already exist for this post'})
-        return sendResponse({message:err?.message ?? 'Something went wrong'});
+        return sendResponse({message:err?.message || 'Something went wrong'});
     }
 
 }

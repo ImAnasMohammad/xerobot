@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const socialMediaAccountSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -37,7 +38,10 @@ const socialMediaAccountSchema = new mongoose.Schema({
   },
   streamId:{ type: String },
   isCompleted:{type:Boolean},
-  isActive:{type:Boolean},
+  isBlocked: { type: Boolean },
+  iskeyExpired: { type: Boolean,default:false },
+  keyExpire: { type: Number,default:0 },
+  
   createdAt: {
     type: Date,
     default: Date.now,

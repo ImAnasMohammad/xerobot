@@ -1,11 +1,12 @@
 
 import { NextResponse } from 'next/server';
-import { jwtVerify } from 'jose';
 import getCookie from './utils/cookies/getCookie';
 
-const SECRET_KEY = process.env.NEXT_JWT_SECRECT || 'KEN%j7387jN9BKDHD^2Mfjsofsudf';
-
 export async function middleware(request) {
+  return NextResponse.next();
+  if (request.nextUrl.pathname.startsWith('/api/instagram/webhooks')) {
+    return NextResponse.next();
+  }
   const protectedRoutes = ['/dashboard','/api'];
   const currentPath = request.nextUrl.pathname;
 

@@ -41,23 +41,17 @@ export async function GET(req) {
         }
 
         if(isAnyError){
-            return sendResponse({status:404,message:`Invalid filed ${isAnyError}`});
+            return sendResponse({status:404,message:`Invalid filed ${isAnyError}`,success:false});
         }
-
-
-
-        // if(!id){
-        //     return sendResponse({status:404,message:"Invalid id"});
-        // }
         await connectDB();
         const accounts = await SocialMediaAccounts.find({},obj);
-        return sendResponse({data:accounts})
-        return sendResponse({data:'ok'})
+        return sendResponse({accounts,success:true})
     } catch (error) {
         console.log("Error occured at get username and profile",error)
 
         return sendResponse({
-            message:error?.response?.data ?? error?.message ?? 'Something went wrong'
+            message: error?.response?.data ?? error?.message ?? 'Something went wrong',
+            success:false
         })
     }
 }

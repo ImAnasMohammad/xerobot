@@ -1,5 +1,5 @@
 import { sendPost } from '@/utils/sendRequest';
-import { GoogleLogin, useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
+import { useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
@@ -20,6 +20,8 @@ const LoginWithGoogle = () => {
 
         setLoading(true);
         const res = await sendPost({url:`/api/google/auth/callback`,payload:{...token }});
+
+        console.log(res)
 
         if (res?.success) {
             router.push('/dashboard')

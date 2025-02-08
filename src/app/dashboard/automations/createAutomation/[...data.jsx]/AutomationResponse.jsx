@@ -3,7 +3,10 @@ import { useColorModeValue } from '@/components/ui/color-mode';
 import useColors from '@/hooks/useColors';
 import { Box, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
-import InputForAutomation, { SwitchForAutomation } from './InputForAutomation';
+import CommmentReply from './components/CommmentReply';
+import DirectReply from './components/DirectReply';
+import LinkReply from './components/LinkReply';
+import InputForAutomation from './components/InputForAutomation';
 
 const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, loading }) => {
   const { bgShadedDark } = useColors();
@@ -30,6 +33,17 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
       gap={10}
     >
       <PoliteRemidnerMessage/>
+      <Box>
+          <InputForAutomation
+            heading={'Enter Automation name'}
+            name="name"
+            value={automationData['name']}
+            handleValue={handleValue}
+            placeholder='Enter your name here...'
+            disabled={loading}
+            type='input'
+          />
+        </Box>
       <Flex  flexDir={'column'} gap={5}>
         <Box>
           <InputForAutomation
@@ -55,44 +69,13 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
           }
         </Flex>
       </Flex>
-      <Flex pt={14} flexDir={'column'} gap={10}>
+      <Flex pt={5} flexDir={'column'} gap={10}>
         <Text fontSize={'lg'}>They’ll receive the DM including links</Text>
         <Flex flexDir={'column'} gap={7}>
-          <InputForAutomation
-            heading={'Enter Comment Reply'}
-            name="commentReply"
-            value={automationData['commentReply']}
-            handleValue={handleValue}
-            placeholder='Enter your reply here...'
-            disabled={loading}
-            type='input'
-          />
-          <InputForAutomation
-            heading={'Enter Direct Message'}
-            name="direactMessage"
-            value={automationData['direactMessage']}
-            handleValue={handleValue}
-            placeholder='Enter your message here...'
-            disabled={loading}
-          />
-          <InputForAutomation
-            heading={'Enter link'}
-            name="url"
-            value={automationData['url']}
-            handleValue={handleValue}
-            type='input'
-            disabled={loading}
-          // placeholder='Enter your link'
-          />
-          <InputForAutomation
-            heading={'Enter Link Label'}
-            name="label"
-            value={automationData['label']}
-            handleValue={handleValue}
-            type='input'
-            disabled={loading}
-          // placeholder='Enter your Link label...'
-          />
+          {/* <ImageReply value={automationData['imageUrl']} handleValue={handleValue} loading={loading}/> */}
+          <CommmentReply value={automationData['commentReply']} handleValue={handleValue} loading={loading}/>
+          <DirectReply value={automationData['message']} handleValue={handleValue} loading={loading}/>
+          <LinkReply url={automationData['url']} title={automationData['title']} handleValue={handleValue} loading={loading} />
         </Flex>
         {/* <Box as={'div'} >
           <SwitchForAutomation

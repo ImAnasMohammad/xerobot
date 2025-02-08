@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ['Facebook', 'Google'],
     },
-    activePlan: { type: Boolean,default:true },
+    activePlan: { type: Boolean, default: true },
+    isActive:{type:Boolean,default:true},
     role:{type:Number},
     createdAt: {
         type: Date,

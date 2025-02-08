@@ -67,7 +67,7 @@ const page = () => {
                 /> : <ProfileSkeleton />
             }
             {
-                !loading && !err && <Link href={'/dashboard/accounts'} ><Button mt={5} width={'300px'}>Go to accounts</Button></Link>
+                !loading && !err && <Link href={'/dashboard/automations'} ><Button mt={5} width={'300px'}>Go to automations</Button></Link>
             }
         </Flex>
     )

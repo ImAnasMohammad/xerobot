@@ -1,4 +1,5 @@
-import { sendPost } from "@/utils/sendRequest";
+import { sendPost } from "@/app/api/utils/sendRequest";
+
 
 async function getInstagramShortLivedAccessToken(code) {
 
@@ -15,5 +16,7 @@ async function getInstagramShortLivedAccessToken(code) {
 
     return await sendPost({url,payload,contentType:'application/x-www-form-urlencoded'});
 }
+
+
 
 export default getInstagramShortLivedAccessToken

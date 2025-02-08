@@ -1,4 +1,5 @@
-import { sendGet } from "@/utils/sendRequest";
+import { sendGet } from "@/app/api/utils/sendRequest";
+
 
 
 const getInstagramAccountDetails = async (access_token) => {

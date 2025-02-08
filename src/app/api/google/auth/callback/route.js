@@ -3,7 +3,7 @@ import sendResponse from "@/utils/sendResponse";
 import { jwtDecode } from "jwt-decode";
 import jwt from 'jsonwebtoken'
 import createCookie from "@/utils/cookies/createCookie";
-import axios from "axios";
+import { sendGet } from "@/app/api/utils/sendRequest";
 
 
 export async function POST(req) {
@@ -12,15 +12,16 @@ export async function POST(req) {
     let details = {}
 
     if(body?.access_token){
-        try {
-            const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-              headers: { Authorization: `Bearer ${body.access_token}` },
-            });
-            details = {...response?.data};
-        } catch (error) {
-            console.log(error)
-            return sendResponse({message:error?.response?.data})
+        const response = await sendGet({
+            url: 'https://www.googleapis.com/oauth2/v3/userinfo',
+            config: { headers: { Authorization: `Bearer ${body.access_token}` } }
+        });
+        
+        if (!response?.success) {
+            console.log(response);
+            return sendResponse({ status: 500, message: 'Failed to login' });
         }
+        details = {...response?.data};
     }else{
         details = jwtDecode(body.credential);
     }

@@ -1,26 +1,56 @@
-import { Flex, Table, Text } from "@chakra-ui/react"
+import { Flex, HStack, Table, Text } from "@chakra-ui/react"
 import AccountProfile from "./AccountProfile"
 import AccountActions from "./AccountActions"
-import AccountRemove from "../dailog/AccountRemove"
-import { useEffect, useState } from "react"
+import DeleteDailog from "../dailog/DeleteDailog"
+import {  useEffect, useState } from "react"
 import { sendGet } from "@/utils/sendRequest"
 import { Spinner } from "@chakra-ui/react"
+import handleDelete from "@/app/dashboard/accounts/handleActions/handleDelete"
+import { toast } from "react-toastify"
+import CustomTable from "../CustomTable"
+import { Button } from "@/components/ui/button"
+import useColors from "@/hooks/useColors"
+import { Plus } from "lucide-react"
+import { Switch } from "@/components/ui/switch"
+import { useColorModeValue } from "@/components/ui/color-mode"
+import handleStatus from "@/app/dashboard/accounts/handleActions/handleStatus"
 
 
-const AccountTable = ({search=''}) => {
+const AccountTable = ({search='',handleOpen}) => {
 
   const [open,setOpen]= useState(false);
   const [accounts,setAccounts]=useState([]);
   const [loading,setLoading] = useState(true);
+  const [deleteLoading, setDeleteLoading] = useState(false); 
+  const {mainColor,textDark} = useColors();
 
-  const handleClick = (id,action) => {
-    console.log(id,action);
+  const handleClick = async (id, action) => {
+    let res = {}
+    if(action==='DELETE'){
+      await handleDelete(id,accounts,setAccounts,setDeleteLoading);
+      setOpen(false);
+    }else if(action==='STATUS' ){
+      res = await handleStatus(id);
+      console.log(res)
+      if(res?.success){
+        setAccounts([...accounts.map(account=>account._id===id?{...account,isActive:!account.isActive}:account)]);
+      }
+    }
+
+    if(!res?.success){
+      toast.error(res?.message || "Something went wrong");
+      return;
+    }
   }
 
   const getAccountDetails = async()=>{
-    const accountDetails =await sendGet({url:`/api/socialAccounts/accounts?search=${search}`});
-
-    setAccounts(accountDetails?.accounts);
+    const accountDetails = await sendGet({ url: `/api/socialAccounts/accounts?search=${search}` });
+    
+    if (accountDetails?.success) {
+      setAccounts(accountDetails?.accounts);
+    } else {
+      toast.error(accountDetails?.message || 'Something went wrong')
+    }
     setLoading(false);
   }
 
@@ -38,27 +68,17 @@ const AccountTable = ({search=''}) => {
 
   return (
     <>
-      <AccountRemove
-        open={open}
-        setOpen={setOpen}
-        handleClick={handleClick}
-      />
-      <Table.ScrollArea borderWidth="1px" borderLeft={'0px'} borderRight={'0px'} maxW="full">
-        <Table.Root size="sm" variant="outline">
-          <Table.Header>
-            <Table.Row fontSize={'lg'} px={5}>
-              <Table.ColumnHeader py={5} px={7}>Account Information</Table.ColumnHeader>
-              <Table.ColumnHeader>Automations</Table.ColumnHeader>
-              <Table.ColumnHeader>Account Actions</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {
-              !loading&&accounts.map(account =><TableRow key={account?._id} account={account} handleClick={handleClick} setOpen={setOpen}/>)
-            }
-          </Table.Body>
-        </Table.Root>
-      </Table.ScrollArea>
+      <DeleteDailog open={open} setOpen={setOpen} handleClick={handleClick} deleteLoading={deleteLoading}>
+        <Text as={'p'}>
+          This action cannot be undone. This will permanently delete your
+          account and all automations regarding to this accounnt and remove your data from our systems.
+        </Text>
+      </DeleteDailog>
+      <CustomTable headings={['Account Information','Automations','Status','Account Actions']}>
+        {
+          accounts?.map(account =><TableRow key={account?._id} account={account} handleClick={handleClick} setOpen={setOpen}/>)
+        }
+      </CustomTable>
       {
         loading && <Flex justifyContent={'center'} mt={20}>
           <Spinner size="md" />
@@ -66,7 +86,7 @@ const AccountTable = ({search=''}) => {
       }
       {
         !loading && accounts?.length<=0 && <Flex justifyContent={'center'} mt={20}>
-          <Text>No Accounts Found</Text>
+          <Button bg={mainColor} color={textDark} onClick={handleOpen}><Plus/>Add Account</Button>
         </Flex>
       }
     </>
@@ -75,27 +95,38 @@ const AccountTable = ({search=''}) => {
 
 const TableRow = ({account,setOpen,handleClick})=>{
 
-  const {accountName,platform,accountUserName,automationCount,accountProfile,_id:id} = account;
+  const {accountName,platform,accountUserName,automationCount,accountProfile,_id:id,iskeyExpired,isActive} = account;
+
+
+  const {textUltraShadedDark} = useColors();
   return <Table.Row>
-  <Table.Cell py={7} px={7}>
-    <AccountProfile user={{
-      email:accountName,
-      accountType:platform,
-      name:accountUserName,
-      profile:accountProfile
-    }} />
+  <Table.Cell py={7} alignItems={'center'}>
+    <Flex justify={'center'} align={'center'}>
+      <AccountProfile user={{
+        email:accountName,
+        accountType:platform,
+        name:accountUserName,
+        profile:accountProfile
+      }} />
+      </Flex>
   </Table.Cell>
-  <Table.Cell>
+  <Table.Cell textAlign={'center'}>
     {
       automationCount
     }
   </Table.Cell>
+  <Table.Cell textAlign={'center'}>
+    <Flex flexDirection="column" gap={2} justifyContent={'center'} alignItems={'center'}>
+      <Switch checked={!iskeyExpired && isActive} disabled={iskeyExpired} onChange={()=>handleClick(id,'STATUS')} pt={iskeyExpired && 5}/>
+      { iskeyExpired && <Text color={useColorModeValue('grey',textUltraShadedDark)}>
+        Permissions has expired. Please regenerate
+      </Text>}
+    </Flex>
+  </Table.Cell>
   <Table.Cell>
     <AccountActions
       handleRemove={()=>setOpen(id)}
-      handlePause={()=>handleClick(id,'PAUSE')}
-      handleRegenerate={()=>handleClick(id,'REGENERATE')}
-      handleResume={()=>handleClick(id,'RESUME')}
+      handleRegenerate={()=>window.location.href=`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_APP_DOMAIN}/${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`}
     />
   </Table.Cell>
 </Table.Row>

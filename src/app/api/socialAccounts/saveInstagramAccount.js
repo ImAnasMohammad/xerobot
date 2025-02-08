@@ -28,7 +28,8 @@ const saveInstagramAccount = async (details) => {
           accessKey: accessToken,
           isCompleted: true,
           isActive: true,
-          streamId: user_id
+          streamId: user_id,
+          iskeyExpired: false,
         },
       },
       {

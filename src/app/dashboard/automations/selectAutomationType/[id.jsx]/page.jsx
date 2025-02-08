@@ -18,20 +18,20 @@ const page = () => {
       label:"dm-comment",
       Icon:Send
     },
-    {
-      heading:'Auto-reply for comments',
-      description:'Automatically send reply for a comment',
-      isPremium:false,
-      label:"reply-comment",
-      Icon:MessageCircle
-    },
-    {
-      heading:'Blended Reply',
-      description:'Automatically send reply and direct messages from comment',
-      isPremium:false,
-      label:'dm-reply-comment',
-      Icon:Zap
-    }
+    // {
+    //   heading:'Auto-reply for comments',
+    //   description:'Automatically send reply for a comment',
+    //   isPremium:false,
+    //   label:"reply-comment",
+    //   Icon:MessageCircle
+    // },
+    // {
+    //   heading:'Blended Reply',
+    //   description:'Automatically send reply and direct messages from comment',
+    //   isPremium:false,
+    //   label:'dm-reply-comment',
+    //   Icon:Zap
+    // }
   ]
   return (
     <Box px={7} py={10}>

@@ -1,6 +1,6 @@
 import sendResponse from "@/utils/sendResponse";
 import fetchAccessToken from "../../../socialAccounts/fetchAccessToken";
-import getInstagramMedia from "./getInstagramMediaDetails";
+import { sendGet } from "@/app/api/utils/sendRequest";
 
 
 export async function GET(req){
@@ -17,15 +17,20 @@ export async function GET(req){
         const {status,message} = socialMediaAccountResponse
         return sendResponse({status,message});
     }
-    const {accountId,accessKey} =socialMediaAccountResponse;
+    const { accountId, accessKey } = socialMediaAccountResponse;
+    
+    const url = `${process.env.NEXT_PUBLIC_GRAPH_INSTAGRAM_URL}/${accountId}/media`;
+    const params = {
+        access_token:accessKey,
+        fields: "fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp",
+    };
 
-
-    const mediaRes = await getInstagramMedia(accountId,accessKey);
+    const mediaRes = await sendGet({ url, params });
 
     if(!mediaRes?.success){
         const {status,message} = mediaRes
         return sendResponse({status,message});
     }
 
-    return sendResponse({data:mediaRes?.data})
+    return sendResponse({success:true,media:mediaRes?.data})
 }

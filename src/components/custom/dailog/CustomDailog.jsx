@@ -13,7 +13,7 @@ import {
   DialogDescription
 } from "@/components/ui/dialog"
 
-const AccountDailog = (
+const CustomDailog = (
           {
             open,
             setOpen,
@@ -39,7 +39,7 @@ const AccountDailog = (
         </DialogHeader>
         <DialogBody>
             {
-                children
+              children
             }
         </DialogBody>
         <DialogFooter>
@@ -55,4 +55,4 @@ const AccountDailog = (
 }
 
 
-export default AccountDailog
+export default CustomDailog

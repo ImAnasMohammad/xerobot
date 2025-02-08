@@ -3,6 +3,7 @@
 import AccountProfile from '@/components/custom/Account/AccountProfile';
 import AccountSkeletonProfile from '@/components/custom/Account/AccountSkeletonProfile';
 import { useColorModeValue } from '@/components/ui/color-mode';
+import { sendGet } from '@/utils/sendRequest';
 import { GridItem } from '@chakra-ui/react';
 import { SimpleGrid } from '@chakra-ui/react';
 import axios from 'axios';
@@ -14,25 +15,19 @@ const AutomationAccounts = ({ selectedAccountId, handleClick }) => {
   const [error, setError] = useState("");
 
   const getAccountDetails =async ()=>{
-    try{
-      const res = await axios.get(`/api/socialAccounts/getAll`);
 
-      if(!res?.data?.data){
-        toast.error(res?.data?.message ?? "Something went wrong.")
-      }else{
-        console.log(res.data.data)
-        setAccounts(res.data.data);
-      }
+    const accountsRes = await sendGet({ url: '/api/socialAccounts/getAll' });
+    
+    setLoading(false);
 
-    }catch(err){
-      toast.error(err?.message ?? "Something went wrong.");
-    }finally{
-      setLoading(false);
+    if(!accountsRes?.success){
+      toast.error(accountsRes?.message || 'Something went wrong.');
+      setError(accountsRes?.message || 'Something went wrong.');
+      return;
     }
+    setAccounts(accountsRes?.accounts || []);
   }
-
-
-
+  
   useEffect(()=>{
     getAccountDetails()
   },[])
@@ -43,7 +38,7 @@ const AutomationAccounts = ({ selectedAccountId, handleClick }) => {
       gap={5}
     >
       {
-        !loading && !error ? <AccountsProfileGrid
+        !loading && !error ? accounts?.length<=0?"No Accounts Found": <AccountsProfileGrid
           accounts={accounts}
           selectedAccountId={selectedAccountId}
           handleClick={handleClick}

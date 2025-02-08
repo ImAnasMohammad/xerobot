@@ -1,6 +1,7 @@
 import { sendPost } from '../../utils/sendRequest';
 
-async function sendText(accessToken,igId, recipient={}, messageText) {
+async function sendText(accessToken, igId, recipient = {}, messageText) {
+  console.log(messageText)
   const url = `https://graph.instagram.com/v22.0/${igId}/messages`;
 
   const payload = {

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const buttonSchema = new mongoose.Schema({
-    label: { type: String },  // Label for the button
-    url: { type: String },    // URL that the button links to
+  title: { type: String,default:'Click me' },
+  url: { type: String },
+  type:{type:String,default:"web_url"},
 });
 
 const AutomationSchema = new mongoose.Schema({
@@ -10,6 +11,10 @@ const AutomationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User',
+  },
+  name:{
+    type:String,
+    default:'Automation'
   },
   accountId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -28,7 +33,7 @@ const AutomationSchema = new mongoose.Schema({
   commentReply: {
     type: String,
   },
-  direactMessage: {
+  message: {
     type: String,
   },
   askToFollow:{
@@ -38,15 +43,19 @@ const AutomationSchema = new mongoose.Schema({
     type: String,
   },
   buttons:{type:[buttonSchema]},
-  commentCount:{
+  imageUrl:{type:String},
+  imageTitle:{type:String},
+  imageSubTitle:{type:String},
+  imageDefaultAction:{type:String},
+  receivedCount:{
     type:Number,
     default:0,
   },
-  replyCount:{
+  respondedCount:{
     type:Number,
     default:0,
   },
-  isLive:{type:Boolean},
+  isLive:{type:Boolean,default:true},
   createdAt: {
     type: Date,
     default: Date.now,

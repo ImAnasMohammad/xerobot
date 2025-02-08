@@ -3,10 +3,10 @@ import { defaultSystem } from "@chakra-ui/react"
 const customConfig = defineConfig({
   ...defaultSystem,
   theme: {
-  fonts: {
-    heading: `'Poppins', sans-serif`,
-    body: `'Inter', sans-serif`,
-  },
+    fonts: {
+      heading: `'Montserrat', sans-serif`,
+      body: `'Roboto', sans-serif`,
+    },
   colors: {
     primary: {
       50: '#e0f7f4',

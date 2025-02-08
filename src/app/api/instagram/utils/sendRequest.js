@@ -1,5 +1,36 @@
 import axios from "axios";
 
+const handleError = (error) => {
+    if (error.response) {
+        if (error.response?.data?.error?.code === 190) {
+            return {
+                status: 401,
+                message: "Your permissions has expired",
+                resetPermissions: true,
+                success:false
+            }
+        }
+        if (error.response?.data?.message?.error?.code === 100) {
+            return {
+                status: 100,
+                message: "Permissions missing",
+                resetPermissions: true,
+                success:false
+            }
+        }
+        return {
+            status: error.response.status,
+            message: error.response.data,
+            success: false
+        };
+    }
+    return {
+        status: 500,
+        success: false,
+        message: "Something went wrong while sending plain text message."
+    }
+}
+
 const sendPost = async (url,payload,accessToken) => {
     try {
         const response = await axios.post(url, payload, {
@@ -13,19 +44,7 @@ const sendPost = async (url,payload,accessToken) => {
             data: response?.data
         }
     } catch (error) {
-        console.log(error)
-        if (error.response) {
-            return {
-                status: error.response.status,
-                message: error.response.data,
-                success: false
-            };
-        }
-        return {
-            status: 500,
-            success: false,
-            message: "Something went wrong while sending plain text message."
-        }
+        return handleError(error)
     }
 }
 

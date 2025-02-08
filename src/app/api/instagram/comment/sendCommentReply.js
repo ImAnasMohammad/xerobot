@@ -1,7 +1,7 @@
-
 import { sendPost } from "../utils/sendRequest";
 
-const commentReply = async (accessToken, commentId, message) =>{
+
+const sendCommentReply = async (accessToken, commentId, message) =>{
 
   const url = `https://graph.instagram.com/v22.0/${commentId}/replies`;
 
@@ -10,4 +10,4 @@ const commentReply = async (accessToken, commentId, message) =>{
   return sendPost(url,payload,accessToken)
 }
 
-export default commentReply;
+export default sendCommentReply;

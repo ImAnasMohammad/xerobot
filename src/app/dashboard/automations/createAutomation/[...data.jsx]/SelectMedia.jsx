@@ -2,10 +2,12 @@ import Heading from '@/app/dashboard/accounts/addAccount/instagram/Heading'
 import PostSkeleton from '@/components/custom/PostSkeleton'
 import { useColorModeValue } from '@/components/ui/color-mode'
 import useColors from '@/hooks/useColors'
+import { sendGet } from '@/utils/sendRequest'
 import { Box, SimpleGrid, Text,Image } from '@chakra-ui/react'
-import axios from 'axios'
+
 import { Check } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 const SelectMedia = ({selectedPost,handleSelectPost,id}) => {
     const { bgShadedDark } = useColors();
@@ -40,23 +42,25 @@ const SelectMedia = ({selectedPost,handleSelectPost,id}) => {
 const MyPosts = ({handleSelectPost,selectedPost,id})=>{
 
     const [posts,setPosts]=useState();
-    const [status,setStatus]=useState({loading:true,error:null});
+    const [loading,setLoading]=useState(true);
+    const [error,setError]=useState(null)
     const arr = [1,2,4,5,6,7];
     const getPosts = async()=>{
-        try{
-            setStatus({...status,loading:true});
-            const res = await axios.get(`/api/instagram/getDetails/instagramMedia?id=${id}`);
-            if(res?.data?.message){
-                setStatus({...status,error:res.data.message});
-            }else{
-                console.log(res?.data)
-                setPosts(res?.data?.data)
-            }
-        }catch(err){
-            setStatus({...status,error:err.message});
-        }finally{
-            setStatus({...status,loading:false})
+        setLoading(true);
+        const res = await sendGet({ url: `/api/instagram/getDetails/instagramMedia?id=${id}` });
+
+        console.log(res)
+        
+        if (res?.success) {
+            console.log(res);
+            setPosts([...res.media]);
         }
+        if(!res?.success){
+            toast.error(res?.message || 'Something went wrong');
+            setError(res?.message || 'Something went wrong');
+        }
+        setLoading(false);
+        
     }
 
     useEffect(()=>{
@@ -66,7 +70,7 @@ const MyPosts = ({handleSelectPost,selectedPost,id})=>{
     return <Box>
         <Box>
             <Text fontSize={'md'} >My Posts</Text>
-            {status?.error && <Text color={'red.500'} fontSize={'sm'} mt={1} textTransform={'capitalize'} >{status.error}</Text>}
+            {error && <Text color={'red.500'} fontSize={'sm'} mt={1} textTransform={'capitalize'} >{error}</Text>}
         </Box>
             <SimpleGrid
                 columns={{ base: 2, sm: 2, md: 3, lg: 3 }}
@@ -75,11 +79,8 @@ const MyPosts = ({handleSelectPost,selectedPost,id})=>{
                 gap={5}
             >
                 {
-                    console.log(posts)
-                }
-                {
-                    status?.loading ? arr.map(post=><PostSkeleton key={post} height={'70px'} width='107px'/>):
-                    !status?.error && posts?.map(post=><Post key={post?.id} post={post} handleSelectPost={handleSelectPost} isSelected={selectedPost?.id==post?.id} />)
+                    loading ? arr.map(post=><PostSkeleton key={post} height={'70px'} width='107px'/>):
+                    !error && posts?.map(post=><Post key={post?.id} post={post} handleSelectPost={handleSelectPost} isSelected={selectedPost?.id==post?.id} />)
                 }
         </SimpleGrid>
     </Box>

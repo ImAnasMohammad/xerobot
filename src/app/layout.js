@@ -15,9 +15,13 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
       </head>
-      <body className='body'>
+      <body className='body'
+      >
         <ToastContainer/>
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_APP_ID}>
           <Provider>

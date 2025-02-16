@@ -2,14 +2,15 @@ import { sendPost } from '@/utils/sendRequest';
 import { useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import { toast } from 'react-toastify';
 import './googleLogin.css'
+import { Spinner } from '@chakra-ui/react';
+import { toastError } from '@/components/custom/toast';
 
 
 const LoginWithGoogle = () => {
     const handleGoogleLoginError = (err) => {
         console.log(err);
-        toast.error("Failed to login.");
+        toastError("Failed to login.");
     }
 
     const [loading, setLoading] = useState(false);
@@ -21,15 +22,12 @@ const LoginWithGoogle = () => {
         setLoading(true);
         const res = await sendPost({url:`/api/google/auth/callback`,payload:{...token }});
 
-        console.log(res)
-
         if (res?.success) {
             router.push('/dashboard')
         } else {
-            toast.error(res?.message || 'Something went wrong.')
+            toastError(res?.message || 'Something went wrong.')
         }
         setLoading(false);
-        console.log(res)
     }
 
 
@@ -43,8 +41,10 @@ const LoginWithGoogle = () => {
         onError:handleGoogleLoginError
     });
     return (
-        loading ? <div>Please wait..</div> :
-        <LoginWithGoogleButton handleClick={login}/>
+        loading ? <div style={{display:'flex',justifyContent:'center'}}>
+                    <Spinner size={'lg'}/>
+                </div>:<LoginWithGoogleButton handleClick={login}/>
+        
 
         // <GoogleLogin
         //     onSuccess={handleGoogleLoginSuccess}

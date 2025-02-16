@@ -2,66 +2,104 @@
 import PageHeading from '@/components/custom/PageHeading'
 import { useColorModeValue } from '@/components/ui/color-mode'
 import useColors from '@/hooks/useColors'
-import { Box, Button, Flex, GridItem, Icon, SimpleGrid, Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import Link from 'next/link'
-import { MessageCircle, Send, Zap } from 'lucide-react'
-import { usePathname } from 'next/navigation'
+import { GalleryHorizontalEnd, MessageCircle, Send, Zap, Link2 } from 'lucide-react'
+import { usePathname } from 'next/navigation' 
 
 const page = () => {
   const router = usePathname();
   const id  = router.split('/').pop().toLocaleLowerCase();
-  const data =[
-    {
-      heading:'Auto DM via comments',
-      description:'Automatically send direct messages from comments.',
-      isPremium:false,
-      label:"dm-comment",
-      Icon:Send
-    },
+  const commentAutomations =[
     // {
     //   heading:'Auto-reply for comments',
-    //   description:'Automatically send reply for a comment',
+    //   description:'Automatically send reply to a comment',
     //   isPremium:false,
     //   label:"reply-comment",
     //   Icon:MessageCircle
     // },
     // {
-    //   heading:'Blended Reply',
-    //   description:'Automatically send reply and direct messages from comment',
+    //   heading:'Auto DM via comments',
+    //   description:'Automatically send message from comment',
     //   isPremium:false,
-    //   label:'dm-reply-comment',
-    //   Icon:Zap
-    // }
+    //   label:"dm-comment",
+    //   Icon:Send
+    // },
+    {
+      heading:'Blended Reply',
+      description:'Automatically send comment reply, message, link and Image from comment',
+      isPremium:false,
+      label:'blend-comment',
+      Icon:Zap
+    }
+  ]
+  const storyAutomations =[
+    {
+      heading:'Auto DM via Story',
+      description:'Automatically send text message as reply to a story',
+      isPremium:false,
+      label:"reply-story",
+      Icon:GalleryHorizontalEnd
+    },
+    {
+      heading:'Auto DM via story',
+      description:'Automatically send text message and link as reply to a story',
+      isPremium:false,
+      label:"dm-comment",
+      Icon:Link2
+    },
+    {
+      heading:'Blended Reply',
+      description:'Automatically send text message, link and Image as reply to a story',
+      isPremium:false,
+      label:'dm-reply-comment',
+      Icon:Zap
+    }
   ]
   return (
     <Box px={7} py={10}>
       <PageHeading path={['Home', 'Automations', 'Select automation']}>Select Automation</PageHeading>
-      <SimpleGrid
-        columns={{ base: 1, sm: 1, md: 1,lg:3 }}
-        gap={4}
-        py={10}
-        justifyItems={'center'}
-      >
-        {
-          data?.map((type)=><Link href={`/dashboard/automations/createAutomation/${type.label}/${id}`} key={type?.label ?? ''}>
-            <Item details={type} />
-          </Link>)
-        }
-      </SimpleGrid>
+      <Flex as='div' gap={10} py={10} flexDirection={'column'} >
+        <Section heading={'Comment Automations'} items={commentAutomations} id={id}/>
+        {/* <Section heading={'Story Automations'} items={storyAutomations} id={id}/> */}
+        {/* <Section heading={'Message Automations'} items={commentAutomations} id={id}/> */}
+      </Flex>
     </Box>
   )
 }
 
 
+const Section = ({heading,items,id})=>{
+  return <Box>
+  <Text fontSize={'2xl'}>{heading}</Text>
+      <Flex
+        flexWrap={'wrap'}
+        gap={26}
+        justifyContent={'space-between'}
+        mt={4}
+        mx={'auto'}
+      >
+        {
+          items?.map((type)=><Link href={`/dashboard/automations/createAutomation/${type.label}/${id}`} key={type?.label ?? ''}>
+            <Item details={type} />
+          </Link>)
+        }
+      </Flex>
+  </Box>
+}
+
+
 const Item = ({details:{heading,description,Icon}})=>{
   const {textUltraShadedDark} = useColors();
-  return <GridItem
+  return <Box
   borderRadius="md"
   boxShadow="xs"
   py={5}
   px={10}
-  width={'fit-content'}
   overflow={'hidden'}
+  minW={'full'}
+  width={'400px'}
+  height={'full'}
   border={useColorModeValue('1px solid rgba(30,30,30,0.2)', '1px solid rgba(30,30,30,0.2)')}
   _hover={{
     border:
@@ -74,7 +112,7 @@ const Item = ({details:{heading,description,Icon}})=>{
   <Text fontSize={'2xl'}>{heading}</Text>
   <Text fontSize={'sm'} mt={1} color={useColorModeValue('#000',textUltraShadedDark)}>{description}</Text>
 
-</GridItem>
+</Box>
 }
 
 export default page

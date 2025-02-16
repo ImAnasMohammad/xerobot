@@ -1,3 +1,5 @@
+import { automationTypes } from '@/utils/automationTypes';
+
 const mongoose = require('mongoose');
 
 const buttonSchema = new mongoose.Schema({
@@ -15,6 +17,11 @@ const AutomationSchema = new mongoose.Schema({
   name:{
     type:String,
     default:'Automation'
+  },
+  type: {
+    type: String,
+    required: true,
+    enum: automationTypes,
   },
   accountId: {
     type: mongoose.Schema.Types.ObjectId,

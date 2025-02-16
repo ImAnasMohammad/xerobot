@@ -4,7 +4,10 @@ const getCookie = async (request,name='authToken')=>{
     try{
         const token = request.cookies.get('authToken');
 
-        if(!token) return {success:false};
+        if(!token) return {
+            success:false,
+            message:"Something went wrong."
+        };
 
 
         const secret = new TextEncoder().encode(process.env.NEXT_JWT_SECRECT || 'KEN%j7387jN9BKDHD^2Mfjsofsudf');
@@ -15,7 +18,8 @@ const getCookie = async (request,name='authToken')=>{
         }
     }catch(err){
         return {
-            success:false
+            success:false,
+            message:"Something went wrong."
         }
     }
 }

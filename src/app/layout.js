@@ -2,6 +2,7 @@
 import { Provider } from "@/provider";
 import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Toaster } from "@/components/ui/toaster";
 
 
 export const metadata = {
@@ -25,11 +26,11 @@ export default function RootLayout({ children }) {
         <ToastContainer/>
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_APP_ID}>
           <Provider>
+            <Toaster/>
             {children}
           </Provider>
         </GoogleOAuthProvider>
       </body>
-      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v21.0"></script>
     </html>
   );
 }

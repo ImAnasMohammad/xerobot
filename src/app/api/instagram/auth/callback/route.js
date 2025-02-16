@@ -4,6 +4,7 @@ import redirect from "@/utils/redirect";
 import getInstagramAccountDetails from "./getInstagramAccountDetails";
 import saveInstagramAccount from "@/app/api/socialAccounts/saveInstagramAccount";
 import getCookie from "@/utils/cookies/getCookie";
+import checkInstagramAccount from "@/app/api/socialAccounts/checkInstagramAccount";
 
 export async function GET(req) {
 
@@ -39,6 +40,16 @@ export async function GET(req) {
         return redirect('/login?error=Session expired please relogin.');
     }
     const userId = userDetails?.data?.payload?.id;
+
+    const checkInstagramLink = await checkInstagramAccount(accountDetailsRes.id,userId);
+
+    console.log(checkInstagramLink)
+
+    if(!checkInstagramLink?.success){
+        return errorRedirect(checkInstagramLink?.message);
+    }
+
+
 
     const savedSocialAccount = await saveInstagramAccount({
         ...accountDetailsRes,

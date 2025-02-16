@@ -24,7 +24,7 @@ const page = () => {
 
   const handleLinkClick = () => {
     setAccountLinkLoading(true);
-    const instagramUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_APP_DOMAIN}/${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
+    const instagramUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
     window.location.href = instagramUrl
   }
 
@@ -37,6 +37,7 @@ const page = () => {
         setSearch={setSearch}
         handleClick={()=>setOpen(true)}
         btnLabel={<><Plus />Add Account</>}
+        searchPlaceholder='Search Account'
       />
       <AccountTable search={search} handleOpen={ ()=>setOpen(true) } />
       <CustomDailog

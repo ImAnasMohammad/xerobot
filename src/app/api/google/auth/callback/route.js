@@ -9,12 +9,12 @@ import { sendGet } from "@/app/api/utils/sendRequest";
 export async function POST(req) {
 
     const body = await req.json();
-    let details = {}
+    let details = {};
 
     if(body?.access_token){
         const response = await sendGet({
-            url: 'https://www.googleapis.com/oauth2/v3/userinfo',
-            config: { headers: { Authorization: `Bearer ${body.access_token}` } }
+            url: 'https://oauth2.googleapis.com/tokeninfo',
+            params:{access_token:body.access_token}
         });
         
         if (!response?.success) {
@@ -25,6 +25,7 @@ export async function POST(req) {
     }else{
         details = jwtDecode(body.credential);
     }
+    console.log(details)
     const {email,sub,name,picture} = details;
     const role =0;
 

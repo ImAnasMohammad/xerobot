@@ -2,9 +2,7 @@ import { Flex, Table, Text } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { sendGet } from "@/utils/sendRequest"
 import { Spinner } from "@chakra-ui/react"
-import { toast } from "react-toastify"
 import CustomTable from "@/components/custom/CustomTable"
-import AccountActions from "@/components/custom/Account/AccountActions"
 import DeleteDailog from "@/components/custom/dailog/DeleteDailog"
 import handleDelete from "./actions/handleDelete"
 import { Switch } from "@/components/ui/switch"
@@ -14,6 +12,7 @@ import { Plus } from "lucide-react"
 import CustomButtom from "@/components/custom/CustomButton"
 import { MdOutlineDeleteOutline } from "react-icons/md"
 import handleStatus from "./actions/handleStatus"
+import { toastError } from "@/components/custom/toast"
 
 
 const AutomationTable = ({ search = '', handleOpen }) => {
@@ -46,10 +45,8 @@ const AutomationTable = ({ search = '', handleOpen }) => {
       }
     }
 
-    console.log(res)
-
     if (!res?.success) {
-      toast.error(res?.message || "Something went wrong");
+      toastError(res?.message || "Something went wrong");
       return;
     }
   }
@@ -60,7 +57,7 @@ const AutomationTable = ({ search = '', handleOpen }) => {
     if (automationDetails?.success) {
       setAutomations(automationDetails?.automations);
     } else {
-      toast.error(automationDetails?.message || 'Something went wrong');
+      toastError(automationDetails?.message || 'Something went wrong');
     }
 
     setLoading(false);
@@ -89,7 +86,7 @@ const AutomationTable = ({ search = '', handleOpen }) => {
         <Text>Do you want to delete automation ?</Text>
       </DeleteDailog>
       {
-        <CustomTable headings={['Automation Name', 'Automation Trigger', 'Success Rate', 'Status', 'Actions']}>
+        <CustomTable headings={['Automation Name', 'Automation Trigger', "Automation Type",'Success Rate', 'Status', 'Actions']}>
           {
             automations?.map(automation => <TableRow key={automation?._id} automation={automation} handleClick={handleClick} setOpen={setOpen} />)
           }
@@ -102,7 +99,7 @@ const AutomationTable = ({ search = '', handleOpen }) => {
       }
       {
         !loading && automations?.length <= 0 && <Flex justifyContent={'center'} mt={20}>
-          <Button bg={mainColor} color={textDark} onClick={handleOpen}><Plus />Add Automation</Button>
+          <Button bg={mainColor} color={textDark} onClick={handleOpen}><Plus />Create Automation</Button>
         </Flex>
       }
     </>
@@ -111,13 +108,22 @@ const AutomationTable = ({ search = '', handleOpen }) => {
 
 const TableRow = ({ automation, setOpen, handleClick }) => {
 
-  const { name, receivedCount, respondedCount, trigger, _id: id, isLive } = automation;
+  console.log(automation)
+
+  const { name, receivedCount, respondedCount, trigger, _id: id, isLive,type } = automation;
   return <Table.Row paddingBlock={10}>
     <Table.Cell textAlign={'center'}>
       <CustomText>{name || 'Automation'}</CustomText>
     </Table.Cell>
     <Table.Cell textAlign={'center'}>
       <CustomText>{trigger || 'Link'}</CustomText>
+    </Table.Cell>
+    <Table.Cell textAlign={'center'}>
+      <CustomText>{
+        type==='reply-comment'?'Reply comment':
+        type==='dm-comment'?"Comment DM":
+        type==='blend-comment'?"Blend Comment":'Not selected'
+      }</CustomText>
     </Table.Cell>
     <Table.Cell textAlign={'center'}>
       <CustomText>
@@ -129,7 +135,7 @@ const TableRow = ({ automation, setOpen, handleClick }) => {
         <Switch checked={isLive} onChange={() => handleClick(id, "STATUS")} />
       </CustomText>
     </Table.Cell>
-    <Table.Cell>
+    <Table.Cell textAlign={'center'}>
       <CustomButtom onClick={() => setOpen(id)} Icon={MdOutlineDeleteOutline} title={'Remove Automation'} textColor={'red'} />
     </Table.Cell>
   </Table.Row>

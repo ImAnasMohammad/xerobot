@@ -6,10 +6,10 @@ import { usePathname } from 'next/navigation'
 import ProfileCard from '@/app/dashboard/accounts/addAccount/instagram/ProfileCard' 
 import ProfileSkeleton from '@/components/custom/ProfileSkeleton'
 import axios from 'axios'
-import { toast } from 'react-toastify'
 import confetti from 'canvas-confetti'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { toastError, toastSuccess } from '@/components/custom/toast'
 
 const page = () => {
     const router = usePathname();
@@ -27,7 +27,7 @@ const page = () => {
                 setImg(data.accountProfile);
                 setName(data.accountUserName);
                 setLoading(false);
-                toast.success("Account successfully linked");
+                toastSuccess("Account successfully linked");
                 confetti({
                   particleCount: 100,
                   spread: 70,
@@ -41,7 +41,7 @@ const page = () => {
         }finally{
             if(err){
                 setLoading(false);
-                toast.error(err)
+                toastError(err)
             }
         }
     }

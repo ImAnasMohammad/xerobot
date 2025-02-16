@@ -1,6 +1,7 @@
 import sendResponse from "@/utils/sendResponse";
 import fetchAccessToken from "../../../socialAccounts/fetchAccessToken";
 import { sendGet } from "@/app/api/utils/sendRequest";
+import { updateResetPermissions } from "@/app/api/socialAccounts/accounts/handlePut";
 
 
 export async function GET(req){
@@ -17,7 +18,7 @@ export async function GET(req){
         const {status,message} = socialMediaAccountResponse
         return sendResponse({status,message});
     }
-    const { accountId, accessKey } = socialMediaAccountResponse;
+    const { accountId, accessKey,_id } = socialMediaAccountResponse;
     
     const url = `${process.env.NEXT_PUBLIC_GRAPH_INSTAGRAM_URL}/${accountId}/media`;
     const params = {
@@ -28,8 +29,11 @@ export async function GET(req){
     const mediaRes = await sendGet({ url, params });
 
     if(!mediaRes?.success){
-        const {status,message} = mediaRes
-        return sendResponse({status,message});
+        if(mediaRes?.accessTokenExpired){
+            await updateResetPermissions(_id,true);
+        }
+
+        return sendResponse({...mediaRes});
     }
 
     return sendResponse({success:true,media:mediaRes?.data})

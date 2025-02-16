@@ -6,10 +6,10 @@ import { usePathname } from 'next/navigation'
 import ProfileCard from '../../../ProfileCard'
 import ProfileSkeleton from '@/components/custom/ProfileSkeleton'
 import axios from 'axios'
-import { toast } from 'react-toastify'
 import confetti from 'canvas-confetti'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { toastError, toastSuccess } from '@/components/custom/toast'
 
 const page = () => {
   const [instagramDetails,setInstagramDetails] = useState({});
@@ -48,7 +48,7 @@ const page = () => {
       },);
 
       if(res?.data?.data?.success===true){
-        toast.success(res?.data?.data?.message);
+        toastSuccess(res?.data?.data?.message);
         confetti({
           particleCount: 100,
           spread: 70,
@@ -56,12 +56,12 @@ const page = () => {
         });
         setConnected(true)
       }else{
-        toast.error(res?.data?.message)
+        toastError(res?.data?.message)
       }
 
     }catch(err){
       console.log(err)
-      toast.error(err.message);
+      toastError(err.message);
     }finally{
       setBtnLoading(false)
       setDisabled(false)

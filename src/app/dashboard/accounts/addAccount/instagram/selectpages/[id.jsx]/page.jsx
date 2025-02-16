@@ -1,5 +1,6 @@
 // src/components/SelectFacebookPage.js
 'use client'
+import { toastError } from "@/components/custom/toast";
 import { Avatar } from "@/components/ui/avatar";
 import { Skeleton, SkeletonCircle } from "@/components/ui/skeleton";
 import useColors from "@/hooks/useColors";
@@ -8,7 +9,6 @@ import axios from "axios";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const page = () => {
     const { textUltraShadedDark } = useColors();
@@ -22,10 +22,10 @@ const page = () => {
             if (res.data.message === null) {
                 setPages(res.data.data)
             } else {
-                toast.error(res.data.message)
+                toastError(res.data.message)
             }
         } catch (err) {
-            toast.error(err.message)
+            toastError(err.message)
         }
     }
 

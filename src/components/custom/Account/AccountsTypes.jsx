@@ -37,18 +37,18 @@ const AccountsTypes = ({ value, setValue,loading=false }) => {
 }
 
 const items = [
-  {
-    icon: <FaceBookIcon/>, value: "Facebook", title: "Facebook"
-  },
+  // {
+  //   icon: <FaceBookIcon/>, value: "Facebook", title: "Facebook"
+  // },
   {
     icon: <InstagramIcon/>, value: "Instagram", title: "Instagram"
   },
-  {
-    icon: <YoutubeIcon/>, value: "Youtube", title: "Youtube"
-  },
-  {
-    icon: <WhatsappIcon/>, value: "Whatsapp", title: "Whatsapp"
-  },
+  // {
+  //   icon: <YoutubeIcon/>, value: "Youtube", title: "Youtube"
+  // },
+  // {
+  //   icon: <WhatsappIcon/>, value: "Whatsapp", title: "Whatsapp"
+  // },
 ]
 
 

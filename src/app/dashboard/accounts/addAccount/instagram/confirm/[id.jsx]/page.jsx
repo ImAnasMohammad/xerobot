@@ -5,10 +5,10 @@ import ProfileSkeleton from '@/components/custom/ProfileSkeleton'
 import { Flex } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import { usePathname, useRouter } from 'next/navigation';
 import Heading from '../../Heading';
 import ProfileCard from '../../ProfileCard';
+import { toastError } from '@/components/custom/toast';
 
 
 
@@ -41,7 +41,7 @@ const page = () => {
             setLoading(false);
         }finally{
             if(err){
-                toast.error(err)
+                toastError(err)
             }
         }
     }

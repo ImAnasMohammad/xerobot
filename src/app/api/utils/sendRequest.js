@@ -13,11 +13,13 @@ const processError = (error) => {
         status:500
     }
 
+    console.log(error.response)
+
     /**
      * 
      * dont change the below if condition
      */
-    if (error.response.data.error_message) {
+    if (error.response?.data?.error_message) {
         res['status'] = error?.response?.status;
         res['message'] = error.response.data.error_message;
         return res;
@@ -28,12 +30,16 @@ const processError = (error) => {
         res['status'] = error.response.status;
         
         // Check if the error response has a nested error message (as in Instagram's response)
-        if (error.response.data && error.response.data.error) {
+        if (error.response?.data && error.response.data?.error) {
+            const {error:err} = error.response.data;
             // Instagram's error structure
-            if (error.response.data.error.message.error_message) {
-                res['message'] = error.response.data.error.message.error_message;
-            } else {
-                res['message'] = error.response.data.error.message || error.response.statusText;
+
+
+            if(err?.code===190 && err?.type==='OAuthException'){
+                res['message'] = 'Your Permissions are expired.';
+                res['accessTokenExpired'] = true;
+            }else{
+                res['message'] = err?.message || 'Something went wrong';
             }
         } else {
             // Fallback to generic response
@@ -64,7 +70,7 @@ const processError = (error) => {
  */
 export const sendGet = async ({ url='', params = {},config={} }) => {
     try {
-        const response = await axios.get(url, {params},config);
+        const response = await axios.get(url, {params},{...config});
         return {
             success: true,
             ...response.data,

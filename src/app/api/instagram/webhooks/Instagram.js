@@ -5,9 +5,12 @@ import handleMessage from "./handleMessage";
 import handleStoryInsights from "./handleStoryInsights";
 
 const Instagram =(entries)=>{
+
+    // console.log(entries)
     
     entries.forEach((entry) => {
-        const {changes,id} = entry;
+        const {changes=[],id,messaging=[]} = entry;
+        console.log(changes,messaging)
         changes?.forEach(({field,value}) => {
             if (field === "comments") {
                 handleComment(value,id);

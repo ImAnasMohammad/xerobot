@@ -13,7 +13,8 @@ const handlePost =async (req)=>{
         'message','askToFollow',
         'initialMessage','url','title','isLive',
         'createdAt','updatedAt','accountId','name',
-        "imageUrl",'imageTitle','imageSubTitile','imageDefaultAction'
+        "imageUrl",'imageTitle','imageSubTitile','imageDefaultAction',
+        "type"
     ];
 
     let anyErrorsInFields = false;

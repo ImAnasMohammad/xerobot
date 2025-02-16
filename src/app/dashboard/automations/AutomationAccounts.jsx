@@ -2,13 +2,12 @@
 
 import AccountProfile from '@/components/custom/Account/AccountProfile';
 import AccountSkeletonProfile from '@/components/custom/Account/AccountSkeletonProfile';
+import { toastError } from '@/components/custom/toast';
 import { useColorModeValue } from '@/components/ui/color-mode';
 import { sendGet } from '@/utils/sendRequest';
 import { GridItem } from '@chakra-ui/react';
 import { SimpleGrid } from '@chakra-ui/react';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 const AutomationAccounts = ({ selectedAccountId, handleClick }) => {
   const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +20,7 @@ const AutomationAccounts = ({ selectedAccountId, handleClick }) => {
     setLoading(false);
 
     if(!accountsRes?.success){
-      toast.error(accountsRes?.message || 'Something went wrong.');
+      toastError(accountsRes?.message || 'Something went wrong.');
       setError(accountsRes?.message || 'Something went wrong.');
       return;
     }

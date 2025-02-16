@@ -24,9 +24,6 @@ const PageHeading = ({children,path}) => {
         {
           pathActual
         }
-        {
-          console.log(textUltraShadedDark)
-        }
       </Text>
     </Flex>
   )

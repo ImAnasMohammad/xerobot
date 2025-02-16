@@ -1,4 +1,4 @@
-import { Flex, HStack, Table, Text } from "@chakra-ui/react"
+import { Flex, Table, Text } from "@chakra-ui/react"
 import AccountProfile from "./AccountProfile"
 import AccountActions from "./AccountActions"
 import DeleteDailog from "../dailog/DeleteDailog"
@@ -6,7 +6,6 @@ import {  useEffect, useState } from "react"
 import { sendGet } from "@/utils/sendRequest"
 import { Spinner } from "@chakra-ui/react"
 import handleDelete from "@/app/dashboard/accounts/handleActions/handleDelete"
-import { toast } from "react-toastify"
 import CustomTable from "../CustomTable"
 import { Button } from "@/components/ui/button"
 import useColors from "@/hooks/useColors"
@@ -14,6 +13,7 @@ import { Plus } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { useColorModeValue } from "@/components/ui/color-mode"
 import handleStatus from "@/app/dashboard/accounts/handleActions/handleStatus"
+import { toastError } from "../toast"
 
 
 const AccountTable = ({search='',handleOpen}) => {
@@ -38,7 +38,7 @@ const AccountTable = ({search='',handleOpen}) => {
     }
 
     if(!res?.success){
-      toast.error(res?.message || "Something went wrong");
+      toastError(res?.message || "Something went wrong");
       return;
     }
   }
@@ -49,7 +49,7 @@ const AccountTable = ({search='',handleOpen}) => {
     if (accountDetails?.success) {
       setAccounts(accountDetails?.accounts);
     } else {
-      toast.error(accountDetails?.message || 'Something went wrong')
+      toastError(accountDetails?.message || 'Something went wrong')
     }
     setLoading(false);
   }
@@ -126,7 +126,7 @@ const TableRow = ({account,setOpen,handleClick})=>{
   <Table.Cell>
     <AccountActions
       handleRemove={()=>setOpen(id)}
-      handleRegenerate={()=>window.location.href=`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_APP_DOMAIN}/${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`}
+      handleRegenerate={()=>window.location.href=`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`}
     />
   </Table.Cell>
 </Table.Row>

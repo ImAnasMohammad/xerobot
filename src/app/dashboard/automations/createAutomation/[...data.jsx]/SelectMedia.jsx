@@ -1,13 +1,14 @@
 import Heading from '@/app/dashboard/accounts/addAccount/instagram/Heading'
 import PostSkeleton from '@/components/custom/PostSkeleton'
+import { toastError } from '@/components/custom/toast'
 import { useColorModeValue } from '@/components/ui/color-mode'
 import useColors from '@/hooks/useColors'
 import { sendGet } from '@/utils/sendRequest'
 import { Box, SimpleGrid, Text,Image } from '@chakra-ui/react'
 
 import { Check } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react';
 
 const SelectMedia = ({selectedPost,handleSelectPost,id}) => {
     const { bgShadedDark } = useColors();
@@ -45,19 +46,21 @@ const MyPosts = ({handleSelectPost,selectedPost,id})=>{
     const [loading,setLoading]=useState(true);
     const [error,setError]=useState(null)
     const arr = [1,2,4,5,6,7];
+    const router = useRouter()
     const getPosts = async()=>{
         setLoading(true);
         const res = await sendGet({ url: `/api/instagram/getDetails/instagramMedia?id=${id}` });
-
-        console.log(res)
         
         if (res?.success) {
             console.log(res);
             setPosts([...res.media]);
         }
         if(!res?.success){
-            toast.error(res?.message || 'Something went wrong');
+            toastError(res?.message || 'Something went wrong');
             setError(res?.message || 'Something went wrong');
+            if(res?.accessTokenExpired){
+                router.push('/dashboard/accounts')
+            }
         }
         setLoading(false);
         

@@ -32,7 +32,7 @@ const Features = () => {
     return (
         <Box maxWidth={'1200px'} mx={'auto'} pb={10}>
             <Text fontSize={'5xl'} textAlign={'center'} mb={'10'}>Features</Text>
-            <Stack direction="row" wrap="wrap" justifyContent={'space-between'}>
+            <Stack direction="row" wrap="wrap" justifyContent={'center'} gap={20} px={10}>
                 <For each={features}>
                     {(feature) => (
                     <Card.Root width="320px" variant={"elevated"} key={feature.heading}>

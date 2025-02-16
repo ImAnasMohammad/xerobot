@@ -5,7 +5,7 @@ async function getInstagramShortLivedAccessToken(code) {
 
     const payload = {
         client_id: process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID,
-        redirect_uri: process.env.NEXT_PUBLIC_APP_DOMAIN+'/'+process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI,
+        redirect_uri:process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI,
         grant_type:'authorization_code',
         client_secret: process.env.NEXT_INSTAGRAM_APP_SECRET,
         code,

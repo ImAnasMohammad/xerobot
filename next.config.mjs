@@ -5,8 +5,15 @@ const nextConfig = {
         esmExternals: false
     },
     images: {
-        domains: ["www.google.com",'encrypted-tbn0.gstatic.com'], // Add any other domains if needed
+        domains: ["www.google.com", "encrypted-tbn0.gstatic.com"], // Add other domains if needed
     },
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: ["@svgr/webpack"],
+        });
+        return config;
+    }
 };
 
 export default nextConfig;

@@ -1,5 +1,6 @@
 'use client'
 import Features from "@/components/custom/Features/Features";
+import Footer from "@/components/custom/Footer";
 import HeroSection from "@/components/custom/Hero/Hero";
 import NavBar from "@/components/custom/NavBar";
 
@@ -20,6 +21,7 @@ export default function Home() {
         <HeroSection/>
         <Features/>
       </main>
+      <Footer/>
     </>
   );
 }

@@ -9,9 +9,10 @@ import FaceBookIcon from "@/components/custom/icons/FaceBookIcon";
 
 import Link from "next/link";
 import LoginWithGoogle from "./GoogleLogin/LoginWithGoogle";
+import Logo from "@/components/custom/Logo";
 
 const LoginPage = () => {
-  const { bgShadedDark } = useColors();
+  const { bgShadedDark,textUltraShadedDark } = useColors();
   const handleFacebookLogin = () => {
     console.log("Facebook login triggered");
     // Add your Facebook login functionality here
@@ -22,8 +23,8 @@ const LoginPage = () => {
     <Flex minHeight={'100dvh'} >
       <Flex as="div" flex={'1 1 50%'} p={10} width={'full'} flexDirection={'column'} >
         <Flex as={'div'} height={'100%'} flexDirection={'column'} alignItems='center' justifyContent={'center'}  >
-          <InstagramIcon width={300} height={300} />
-          <Text fontSize={'3xl'}>Let's get Start with new one...!</Text>
+          <Logo width={500} />
+          <Text fontSize={'3xl'} mt={2} color={textUltraShadedDark} >Let's get Start with new one...!</Text>
         </Flex>
       </Flex>
       <Flex
@@ -43,7 +44,7 @@ const LoginPage = () => {
 const LoginCard = () => {
   return <Flex as={'div'} gap={10} flexDirection={'column'} alignItems={'center'}>
     <Text fontSize={'3xl'} as={'h1'} fontWeight={'bold'} textTransform={'capitalize'}>
-      Welcome Back to chatSync
+      Welcome Back to Xerobyte
     </Text>
     <Flex gap={5} w="300px" direction={'column'} mb={20}>
       <LoginWithGoogle/>
@@ -59,8 +60,8 @@ const LoginCard = () => {
       /> */}
     </Flex>
     <Flex justifyContent={'space-between'} w={'100%'} flex={'1 1 auto'} >
-      <Link href={''}><Text color={'blue.500'} fontSize={'xs'}>Terms of Service</Text></Link>
-      <Link href={''}><Text color={'blue.500'} fontSize={'xs'}>Privacy Policcy</Text></Link>
+      <Link href={'/terms'}><Text color={'blue.500'} fontSize={'xs'}>Terms of Service</Text></Link>
+      <Link href={'/policy'}><Text color={'blue.500'} fontSize={'xs'}>Privacy Policcy</Text></Link>
     </Flex>
   </Flex>
 }

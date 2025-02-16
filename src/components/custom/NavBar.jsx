@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useColorMode, useColorModeValue } from '../ui/color-mode';
 import { Menu, X, Moon, Sun } from 'lucide-react';
+import Logo from './Logo';
 
 const Links = ['Home', 'About', 'Services', 'Contact'];
 
@@ -61,7 +62,7 @@ const Navbar = () => {
       width={'100%'}
       transition="background-color 0.3s ease"
     >
-      <Flex h={16} alignItems="center" justifyContent="space-between">
+      <Flex h={16} alignItems="center" justifyContent="space-between" py={10}>
         {/* Logo & Mobile Menu Toggle */}
         <Flex alignItems="center" gap={3} fontWeight="bold" color="white">
           {/* <Button
@@ -72,9 +73,7 @@ const Navbar = () => {
             {isOpen ? <X /> : <Menu />}
           </Button> */}
           <NextLink href="/" passHref>
-            <Box fontSize="xl" fontWeight="bold">
-              MyLogo
-            </Box>
+            <Logo />
           </NextLink>
         </Flex>
 

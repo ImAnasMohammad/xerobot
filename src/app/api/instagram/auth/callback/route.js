@@ -43,8 +43,6 @@ export async function GET(req) {
 
     const checkInstagramLink = await checkInstagramAccount(accountDetailsRes.id,userId);
 
-    console.log(checkInstagramLink)
-
     if(!checkInstagramLink?.success){
         return errorRedirect(checkInstagramLink?.message);
     }

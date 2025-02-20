@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = 'mongodb://localhost:27017/chat-sync'; // MongoDB URI
+const MONGO_URI = 'mongodb+srv://<db_username>:<db_password>@cluster0.pozxy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // MongoDB URI
 
 let isConnected = false; // Track connection status
 

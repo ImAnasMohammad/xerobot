@@ -1,3 +1,4 @@
+'use client'
 import { sendPost } from '@/utils/sendRequest';
 import { useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';

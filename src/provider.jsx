@@ -2,9 +2,10 @@
 
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react'
 import { ColorModeProvider } from './components/ui/color-mode';
-
-import {system} from './theme';
-import { ThemeProvider } from 'next-themes';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import NextNProgress from "react-top-loading-bar";
+import useColors from './hooks/useColors';
 
 export function Provider(props) {
   return (
@@ -14,4 +15,31 @@ export function Provider(props) {
       {/* </ThemeProvider> */}
     </ChakraProvider>
   )
+}
+
+
+export function LoadingProvider({ children }) {
+  const [progress, setProgress] = useState(0);
+  const pathname = usePathname();
+  const {mainColor} = useColors();
+
+  useEffect(() => {
+    setProgress(30);
+    const timer = setTimeout(() => setProgress(100), 500);
+    console.log("first")
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
+  return (
+    <>
+      <NextNProgress
+        color={mainColor}
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+        height={3}
+        options={{ showSpinner: false }}
+      />
+      {children}
+    </>
+  );
 }

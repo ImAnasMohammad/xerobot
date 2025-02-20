@@ -1,70 +1,44 @@
-"use client";
-import React, { useState } from "react";
-import { Button, VStack, Box, Center, Text, Stack, Flex } from "@chakra-ui/react";
-import { useColorModeValue } from "@/components/ui/color-mode";
-import useColors from "@/hooks/useColors";
-import InstagramIcon from "@/components/custom/icons/InstagramIcon";
-import FaceBookIcon from "@/components/custom/icons/FaceBookIcon";
-// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
-import Link from "next/link";
-import LoginWithGoogle from "./GoogleLogin/LoginWithGoogle";
-import Logo from "@/components/custom/Logo";
+import Main from "./Main";
+
+
+export const metadata = {
+  title: "Login - Xerobot",
+  description: "Sign in to Xerobot and automate your social media tasks effortlessly.",
+  keywords: ["Xerobot", "login", "social media automation", "chatbot", "AI automation"],
+  openGraph: {
+    title: "Login - Xerobot",
+    description: "Sign in to Xerobot and automate your social media tasks effortlessly.",
+    url: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
+    siteName: "Xerobot",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/logos/xerobot.png`,
+        width: 1200,
+        height: 630,
+        alt: "Xerobot Login",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card:`${process.env.NEXT_PUBLIC_BASE_URL}/logos/xerobot.png`,
+    title: "Login - Xerobot",
+    description: "Sign in to Xerobot and automate your social media tasks effortlessly.",
+    images: [`${process.env.NEXT_PUBLIC_BASE_URL}/logos/xerobot.png`],
+  },
+};
 
 const LoginPage = () => {
-  const { bgShadedDark,textUltraShadedDark } = useColors();
   const handleFacebookLogin = () => {
     console.log("Facebook login triggered");
     // Add your Facebook login functionality here
   };
 
-
-  return (
-    <Flex minHeight={'100dvh'} >
-      <Flex as="div" flex={'1 1 50%'} p={10} width={'full'} flexDirection={'column'} >
-        <Flex as={'div'} height={'100%'} flexDirection={'column'} alignItems='center' justifyContent={'center'}  >
-          <Logo width={500} />
-          <Text fontSize={'3xl'} mt={2} color={textUltraShadedDark} >Let's get Start with new one...!</Text>
-        </Flex>
-      </Flex>
-      <Flex
-        as={'div'}
-        bg={useColorModeValue('red', bgShadedDark)}
-        flex={'1 0 50%'}
-        justifyContent={'center'}
-        alignItems={'center'}
-      >
-        <LoginCard/>
-      </Flex>
-    </Flex>
-  )
+  return <Main/>
 
 };
 
-const LoginCard = () => {
-  return <Flex as={'div'} gap={10} flexDirection={'column'} alignItems={'center'}>
-    <Text fontSize={'3xl'} as={'h1'} fontWeight={'bold'} textTransform={'capitalize'}>
-      Welcome Back to Xerobyte
-    </Text>
-    <Flex gap={5} w="300px" direction={'column'} mb={20}>
-      <LoginWithGoogle/>
-      {/* <FacebookLogin
-        appId="611965981306653"
-        autoLoad={true}
-        callback={()=>{}}
-        fields="name,email,picture"
-        scope="public_profile,user_friends,user_actions.books"
-        render={renderProps => (
-          <Button onClick={renderProps.onClick}><FaceBookIcon/>continue with facebook</Button>
-        )}
-      /> */}
-    </Flex>
-    <Flex justifyContent={'space-between'} w={'100%'} flex={'1 1 auto'} >
-      <Link href={'/terms'}><Text color={'blue.500'} fontSize={'xs'}>Terms of Service</Text></Link>
-      <Link href={'/policy'}><Text color={'blue.500'} fontSize={'xs'}>Privacy Policcy</Text></Link>
-    </Flex>
-  </Flex>
-}
 
 
 export default LoginPage;

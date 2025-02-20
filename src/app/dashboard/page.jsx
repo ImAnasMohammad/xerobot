@@ -9,10 +9,19 @@ import { useEffect, useState } from 'react';
 import InstagramActivity from './InstagramActivity';
 import Card from './Card';
 import { toastError, toastSuccess } from '@/components/custom/toast';
+import SeoMeta from '@/components/custom/SEOMeta';
 
 
 
 const page = () => {
+
+  const metaData = {
+    description: "Manage and automate your workflows with ease on XeroBot. Create, track, and optimize your automations effortlessly.",
+    keywords: "automation, workflow automation, chatbot, XeroBot, automation tools, AI-driven automation, task automation, business workflow, smart automation tools",
+    url: "https://yourwebsite.com/dashboard/automations",
+    image: "https://yourwebsite.com/og-image.jpg",
+  };
+
 
     const [connectedAccounts,setConnectedAccounts] = useState(null);
     const [totalAutomations,setTotalAutomations] = useState(null);
@@ -89,8 +98,10 @@ const page = () => {
 
 
   return (
+  <>
+    <SeoMeta title={'Dashboard - Xerobot'}/>
     <Box px={7} py={10}>
-      <PageHeading path={[]}>Hey, Shaik</PageHeading>
+      <PageHeading path={[]}>Hey, there</PageHeading>
       <Flex gap={4} flexWrap={'wrap'} py={10}>
         {
           items.map(item=><Card key={item.name} item={item}/>)
@@ -98,6 +109,7 @@ const page = () => {
       </Flex>
       <InstagramActivity accounts={accounts} averageSccessRate={averageSccessRate}/>
     </Box>
+  </>
   )
 }
 

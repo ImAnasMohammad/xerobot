@@ -31,6 +31,7 @@ export async function GET(req) {
                 obj[fields[i]]=1;
             }
         }
+        console.log(isAnyError)
 
         if(isAnyError){
             return sendResponse({status:404,message:`Invalid filed ${isAnyError}`});

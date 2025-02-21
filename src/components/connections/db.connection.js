@@ -1,10 +1,5 @@
 import mongoose from 'mongoose';
 
-<<<<<<< HEAD
-// const MONGO_URI = 'mongodb+srv://xerobot:Xerobot786@cluster0.pozxy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // MongoDB URI
-// const MONGO_URI = 'mongodb://localhost:27017/chat-sync'; // MongoDB URI
-=======
->>>>>>> 86068ddb48c5a8ca71fb0f356939dd192900a408
 const MONGO_URI = process.env.NEXT_MONGO_URL; // MongoDB URI
 
 let isConnected = false; // Track connection status

@@ -13,7 +13,6 @@ export async function middleware(request) {
 
   const isAuthenticated = await getCookie(request);
 
-  console.log(isAuthenticated)
 
 
 

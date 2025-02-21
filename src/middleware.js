@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import getCookie from './utils/cookies/getCookie';
 
 export async function middleware(request) {
-  console.log(request.nextUrl.pathname)
   if (request.nextUrl.pathname.startsWith('/api/instagram/webhooks')) {
     return NextResponse.next();
   }

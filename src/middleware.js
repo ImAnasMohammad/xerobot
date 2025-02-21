@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import getCookie from './utils/cookies/getCookie';
 
 export async function middleware(request) {
-  console.log(request);
   if (request.nextUrl.pathname.startsWith('/api/instagram/webhooks')) {
     return NextResponse.next();
   }
@@ -13,6 +12,8 @@ export async function middleware(request) {
   if(currentPath==='/api/google/auth/callback') return NextResponse.next()
 
   const isAuthenticated = await getCookie(request);
+
+  console.log(isAuthenticated)
 
 
 

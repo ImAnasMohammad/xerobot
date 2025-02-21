@@ -15,16 +15,20 @@ export async function GET(req) {
 
     const { searchParams } = new URL(req.url);
     const code = searchParams.get("code");
+    console.log(code)
 
     if (!code) {
         return errorRedirect("Authorization code not found");
     }
 
+    console.log(code)
+
     const shortToken = await getInstagramShortLivedAccessToken(code);
+    console.log(shortToken)
 
 
     if (!shortToken?.success) {
-        return errorRedirect(shortToken?.message);
+        return errorRedirect("ok1");
     }
 
     const { access_token, user_id } = shortToken;
@@ -32,7 +36,7 @@ export async function GET(req) {
     const accountDetailsRes = await getInstagramAccountDetails(access_token);
 
     if (!accountDetailsRes?.success) {
-        return errorRedirect(accountDetailsRes?.message);
+        return errorRedirect("ok2");
     }
 
     const userDetails = await getCookie(req);

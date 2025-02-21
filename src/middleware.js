@@ -15,6 +15,7 @@ export async function middleware(request) {
 
 
 
+
   if(currentPath==='/login' && isAuthenticated?.success) return NextResponse.redirect(new URL('/dashboard', request.url));
   if (protectedRoutes.some(route => currentPath.startsWith(route)) && !isAuthenticated?.success) return NextResponse.redirect(new URL('/login', request.url));
 

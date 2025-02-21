@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-'use client'
-=======
+
 "use client";
->>>>>>> 86068ddb48c5a8ca71fb0f356939dd192900a408
 
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";

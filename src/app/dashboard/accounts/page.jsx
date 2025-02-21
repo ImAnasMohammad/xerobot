@@ -8,6 +8,8 @@ import CustomDailog from '@/components/custom/dailog/CustomDailog';
 import AccountsTypes from '@/components/custom/Account/AccountsTypes';
 import showErrorsInUrl from '@/utils/showErrorsInURL';
 import HeadingWithSearch from '../HeadingWithSearch';
+import { toastError } from '@/components/custom/toast';
+import instagramLogin from '@/utils/handleInstagramLogin';
 
 const page = () => {
   const [search, setSearch] = useState('');
@@ -22,10 +24,17 @@ const page = () => {
     setOpen(false);
   }
 
-  const handleLinkClick = () => {
+  const handleLinkClick = async () => {
     setAccountLinkLoading(true);
-    const instagramUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
-    window.location.href = instagramUrl
+    // `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`
+    try {
+      const code = await instagramLogin();
+      console.log(code)
+    } catch (error) {
+      console.log(error)
+      toastError("Instagram Login Failed");
+    }
+    // window.location.href = instagramUrl
   }
 
   return (
@@ -35,11 +44,11 @@ const page = () => {
         heading={'My Accounts'}
         search={search}
         setSearch={setSearch}
-        handleClick={()=>setOpen(true)}
+        handleClick={() => setOpen(true)}
         btnLabel={<><Plus />Add Account</>}
         searchPlaceholder='Search Account'
       />
-      <AccountTable search={search} handleOpen={ ()=>setOpen(true) } />
+      <AccountTable search={search} handleOpen={() => setOpen(true)} />
       <CustomDailog
         open={open}
         setOpen={setOpen}

@@ -10,12 +10,15 @@ import { usePathname } from 'next/navigation'
 const page = () => {
   const router = usePathname();
   const id  = router.split('/').pop().toLocaleLowerCase();
+  const commentAutomationUrl = (label) => `/dashboard/automations/createAutomation/${label}/${id}`
+  const messageAutomationUrl = (label) => `/dashboard/automations/message-ground/${id}`
   const commentAutomations =[
     // {
     //   heading:'Auto-reply for comments',
     //   description:'Automatically send reply to a comment',
     //   isPremium:false,
     //   label:"reply-comment",
+    //   href:commentAutomationUrl('reply-comment'),
     //   Icon:MessageCircle
     // },
     // {
@@ -23,6 +26,7 @@ const page = () => {
     //   description:'Automatically send message from comment',
     //   isPremium:false,
     //   label:"dm-comment",
+    //   href:commentAutomationUrl('dm-comment'),
     //   Icon:Send
     // },
     {
@@ -30,6 +34,7 @@ const page = () => {
       description:'Automatically send comment reply, message, link and Image from comment',
       isPremium:false,
       label:'blend-comment',
+      href:commentAutomationUrl('blend-comment'),
       Icon:Zap
     }
   ]
@@ -56,20 +61,30 @@ const page = () => {
       Icon:Zap
     }
   ]
+
+  const messageAutomation = [
+    {
+      heading:'Auto DM',
+      description:'Automatically send text message, link and Image.',
+      isPremium:false,
+      href:messageAutomationUrl(),
+      Icon:Zap
+    }
+  ]
   return (
     <Box px={7} py={10}>
       <PageHeading path={['Home', 'Automations', 'Select automation']}>Select Automation</PageHeading>
       <Flex as='div' gap={10} py={10} flexDirection={'column'} >
-        <Section heading={'Comment Automations'} items={commentAutomations} id={id}/>
-        {/* <Section heading={'Story Automations'} items={storyAutomations} id={id}/> */}
-        {/* <Section heading={'Message Automations'} items={commentAutomations} id={id}/> */}
+        <Section heading={'Comment Automations'} items={commentAutomations}/>
+        {/* <Section heading={'Story Automations'} items={storyAutomations}/> */}
+        <Section heading={'Message Automations'} items={messageAutomation}/>
       </Flex>
     </Box>
   )
 }
 
 
-const Section = ({heading,items,id})=>{
+const Section = ({heading,items})=>{
   return <Box>
   <Text fontSize={'2xl'}>{heading}</Text>
       <Flex
@@ -80,7 +95,7 @@ const Section = ({heading,items,id})=>{
         mx={'auto'}
       >
         {
-          items?.map((type)=><Link href={`/dashboard/automations/createAutomation/${type.label}/${id}`} key={type?.label ?? ''}>
+          items?.map((type)=><Link href={type.href ?? ''} key={type.href ?? ''}>
             <Item details={type} />
           </Link>)
         }

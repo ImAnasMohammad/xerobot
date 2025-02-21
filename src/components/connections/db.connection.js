@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = 'mongodb://localhost:27017/chat-sync'; // MongoDB URI
+// const MONGO_URI = 'mongodb+srv://xerobot:Xerobot786@cluster0.pozxy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // MongoDB URI
+// const MONGO_URI = 'mongodb://localhost:27017/chat-sync'; // MongoDB URI
+const MONGO_URI = process.env.NEXT_MONGO_URL; // MongoDB URI
 
 let isConnected = false; // Track connection status
 
@@ -18,6 +20,7 @@ const connectDB = async () => {
     isConnected = true;
     console.log('MongoDB connected');
   } catch (err) {
+    console.log(err.errorResponse)
     console.error('MongoDB connection error:', err);
   }
 };

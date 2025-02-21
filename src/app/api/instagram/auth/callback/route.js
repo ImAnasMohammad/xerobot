@@ -20,7 +20,10 @@ export async function GET(req) {
         return errorRedirect("Authorization code not found");
     }
 
+    console.log(code)
+
     const shortToken = await getInstagramShortLivedAccessToken(code);
+    console.log(shortToken)
 
 
     if (!shortToken?.success) {

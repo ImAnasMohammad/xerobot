@@ -15,6 +15,7 @@ export async function GET(req) {
 
     const { searchParams } = new URL(req.url);
     const code = searchParams.get("code");
+    console.log(code)
 
     if (!code) {
         return errorRedirect("Authorization code not found");

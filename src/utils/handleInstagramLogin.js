@@ -37,6 +37,7 @@ const instagramLogin = () => {
 const handleInstagramLogin = async () => {
     try {
         const code = await instagramLogin();
+        console.log(code)
         window.location.href = `/api/instagram/auth/callback?code=${code}`;
 
     } catch (error) {

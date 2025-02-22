@@ -30,13 +30,13 @@ const page = () => {
     try {
       setAccountLinkLoading(true);
       const code = await instagramLogin();
+      console.log(code)
       redirect.push(`/api/instagram/auth/callback?code=${code}`);
       
     } catch (error) {
       toastError("Instagram Login Failed");
     }finally{
       setAccountLinkLoading(false);
-
     }
   }
 

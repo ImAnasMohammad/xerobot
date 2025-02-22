@@ -22,6 +22,8 @@ const handleComment = async (data, id) => {
     // Fetch automation settings for this mediaId
     const automationsRes = await getByMediaId(mediaId);
 
+    console.log(automationsRes)
+
 
     if (!automationsRes?.success) {
         return failed();

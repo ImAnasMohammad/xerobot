@@ -1,6 +1,7 @@
 import { toastError } from "@/components/custom/toast";
 
 
+
 const instagramLogin = () => {
     return new Promise((resolve, reject) => {
         const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
@@ -22,26 +23,26 @@ const instagramLogin = () => {
 
             if (event.data?.code) {
                 window.removeEventListener("message", messageHandler);
+                console.log(event.data.code)
                 resolve(event.data.code);
             } else {
                 reject("No code received");
             }
         };
 
-        window.addEventListener("message", messageHandler);
-        // window.addEventListener("message", messageHandler, { once: true });
+        // window.addEventListener("message", messageHandler);
+        window.addEventListener("message", messageHandler, { once: true });
     });
 };
 
 
 const handleInstagramLogin = async () => {
     try {
-        const code = await instagramLogin();
-        console.log(code)
-        window.location.href = `/api/instagram/auth/callback?code=${code}`;
-
+      const code = await instagramLogin();
+      window.location.href=`/api/instagram/auth/callback?code=${code}`;
+      
     } catch (error) {
-        toastError("Instagram Login Failed");
+      toastError("Instagram Login Failed");
     }
 }
 

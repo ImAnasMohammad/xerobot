@@ -28,8 +28,8 @@ const instagramLogin = () => {
             }
         };
 
-        // window.addEventListener("message", messageHandler);
-        window.addEventListener("message", messageHandler, { once: true });
+        window.addEventListener("message", messageHandler);
+        // window.addEventListener("message", messageHandler, { once: true });
     });
 };
 

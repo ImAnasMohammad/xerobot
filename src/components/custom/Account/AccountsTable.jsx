@@ -14,6 +14,7 @@ import { Switch } from "@/components/ui/switch"
 import { useColorModeValue } from "@/components/ui/color-mode"
 import handleStatus from "@/app/dashboard/accounts/handleActions/handleStatus"
 import { toastError } from "../toast"
+import handleInstagramLogin from "@/utils/handleInstagramLogin"
 
 
 const AccountTable = ({search='',handleOpen}) => {
@@ -127,7 +128,7 @@ const TableRow = ({account,setOpen,handleClick})=>{
   <Table.Cell>
     <AccountActions
       handleRemove={()=>setOpen(id)}
-      handleRegenerate={()=>window.location.href=`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`}
+      handleRegenerate={handleInstagramLogin}
     />
   </Table.Cell>
 </Table.Row>

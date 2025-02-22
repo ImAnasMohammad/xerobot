@@ -1,4 +1,4 @@
-
+import { toastError } from "@/components/custom/toast";
 
 
 const instagramLogin = () => {
@@ -28,9 +28,20 @@ const instagramLogin = () => {
             }
         };
 
-        window.addEventListener("message", messageHandler);
-        // window.addEventListener("message", messageHandler, { once: true });
+        // window.addEventListener("message", messageHandler);
+        window.addEventListener("message", messageHandler, { once: true });
     });
 };
 
-export default instagramLogin
+
+const handleInstagramLogin = async () => {
+    try {
+        const code = await instagramLogin();
+        window.location.href = `/api/instagram/auth/callback?code=${code}`;
+
+    } catch (error) {
+        toastError("Instagram Login Failed");
+    }
+}
+
+export default handleInstagramLogin

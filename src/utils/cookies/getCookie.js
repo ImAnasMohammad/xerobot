@@ -4,8 +4,6 @@ const getCookie = async (request,name='authToken')=>{
     try{
         const token = request.cookies.get('authToken');
 
-        console.log(token);
-
         if(!token) return {
             success:false,
             message:"Something went wrong."

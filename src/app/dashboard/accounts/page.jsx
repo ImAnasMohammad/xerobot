@@ -25,15 +25,19 @@ const page = () => {
   }
 
   const handleLinkClick = async () => {
-    setAccountLinkLoading(true);
     // `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`
     try {
+      setAccountLinkLoading(true);
       const code = await instagramLogin();
       console.log(code)
     } catch (error) {
       console.log(error)
       toastError("Instagram Login Failed");
+    }finally{
+      setAccountLinkLoading(false);
+
     }
+    console.log("firstss")
     // window.location.href = instagramUrl
   }
 

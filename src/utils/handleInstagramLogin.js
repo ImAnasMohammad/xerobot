@@ -18,6 +18,7 @@ const instagramLogin = () => {
 
         // Listen for the message containing the `code`
         const messageHandler = (event) => {
+            console.log(event.origin)
             if (event.origin !== window.location.origin) return;
 
             if (event.data?.code) {

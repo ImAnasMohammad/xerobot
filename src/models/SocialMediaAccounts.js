@@ -40,6 +40,7 @@ const socialMediaAccountSchema = new mongoose.Schema({
   isCompleted:{type:Boolean},
   isBlocked: { type: Boolean },
   iskeyExpired: { type: Boolean,default:false },
+  isActive: { type: Boolean,default:true },
   keyExpire: { type: Number,default:0 },
   
   createdAt: {

@@ -1,18 +1,17 @@
 
 "use client";
 
+import { toastError } from "@/components/custom/toast";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 import { Suspense } from "react";
 
 const ShowErrors = ({ query = "error", display = true }) => {
     const searchParams = useSearchParams();
     const data = searchParams.get(query);
-
     useEffect(() => {
         if (display && data) {
-            toast.error(data);
+            toastError(data);
         }
     }, [data]);
 

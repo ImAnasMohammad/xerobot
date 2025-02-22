@@ -7,10 +7,11 @@ export default function InstagramCodeHandler() {
     const code = searchParams.get("code");
 
     useEffect(() => {
+        console.log(code)
         if (code) {
             window.opener?.postMessage({ code }, window.location.origin);
             setTimeout(() => {
-                // window.close();
+                window.close();
             }, 1500);
         }
     }, [code]);

@@ -18,11 +18,9 @@ const instagramLogin = () => {
 
         // Listen for the message containing the `code`
         const messageHandler = (event) => {
-            console.log(event.origin)
             if (event.origin !== window.location.origin) return;
 
             if (event.data?.code) {
-                console.log("Received Instagram Code:", event.data.code);
                 window.removeEventListener("message", messageHandler);
                 resolve(event.data.code);
             } else {
@@ -30,7 +28,8 @@ const instagramLogin = () => {
             }
         };
 
-        window.addEventListener("message", messageHandler, { once: true });
+        window.addEventListener("message", messageHandler);
+        // window.addEventListener("message", messageHandler, { once: true });
     });
 };
 

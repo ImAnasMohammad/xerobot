@@ -47,6 +47,7 @@ const AccountTable = ({search='',handleOpen}) => {
     const accountDetails = await sendGet({ url: `/api/socialAccounts/accounts?search=${search}` });
     
     if (accountDetails?.success) {
+      console.log(accountDetails?.accounts)
       setAccounts(accountDetails?.accounts);
     } else {
       toastError(accountDetails?.message || 'Something went wrong')

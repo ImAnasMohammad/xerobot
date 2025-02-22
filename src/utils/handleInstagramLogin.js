@@ -18,32 +18,32 @@ const instagramLogin = () => {
             `width=${width},height=${height},top=${top},left=${left}`
         );
 
-        // Listen for the message containing the `code`
-        const messageHandler = (event) => {
-            console.log(event?.data)
-            if (event.origin !== window.location.origin) return;
+        if (!win) {
+            reject("Popup blocked. Please allow popups.");
+            return;
+        }
 
-            if (event.data?.code) {
-                window.removeEventListener("message", messageHandler);
-                resolve(event.data.code);
-            } else {
-                reject("No code received");
+        const checkPopup = setInterval(() => {
+            if (win.closed) {
+                clearInterval(checkPopup);
+                resolve(true);
             }
-        };
-
-        window.addEventListener("message", messageHandler);
-        // win.addEventListener("message", messageHandler, { once: true });
+        }, 500);
     });
 };
 
 
 const handleInstagramLogin = async () => {
     try {
-      const code = await instagramLogin();
-    //   window.location.href=`/api/instagram/auth/callback?code=${code}`;
-      
+        const res = await instagramLogin();
+        const code = window.localStorage.getItem('instagram_auth_code');
+        if(res && code){
+            window.location.href=`/api/instagram/auth/callback?code=${code}`;        
+        }else{
+            toastError("Instagram Login Failed");
+        }
     } catch (error) {
-      toastError("Instagram Login Failed");
+        toastError("Instagram Login Failed");
     }
 }
 

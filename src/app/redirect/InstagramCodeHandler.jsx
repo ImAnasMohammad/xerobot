@@ -7,13 +7,11 @@ export default function InstagramCodeHandler() {
     const code = searchParams.get("code");
 
     useEffect(() => {
-        if (code && window.opener) {
-            window.opener?.postMessage({ code }, window.location.origin);
-            setTimeout(() => {
-                window.close();
-            }, 1500);
+        if (code) {
+            window.localStorage.setItem('instagram_auth_code',code);
+            window.close();
         }
     }, [code]);
 
-    return code ? <p>Code: <b>{code}</b></p> : null;
+    return code ? <p>Please wait...</p> : null;
 }

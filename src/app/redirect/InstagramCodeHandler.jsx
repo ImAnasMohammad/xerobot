@@ -8,8 +8,9 @@ export default function InstagramCodeHandler() {
 
     useEffect(() => {
         if (code) {
+            console.log(code)
             window.localStorage.setItem('instagram_auth_code',code);
-            window.close();
+            // window.close();
         }
     }, [code]);
 

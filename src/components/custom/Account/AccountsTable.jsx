@@ -32,7 +32,6 @@ const AccountTable = ({search='',handleOpen}) => {
       setOpen(false);
     }else if(action==='STATUS' ){
       res = await handleStatus(id);
-      console.log(res)
       if(res?.success){
         setAccounts([...accounts.map(account=>account._id===id?{...account,isActive:!account.isActive}:account)]);
       }
@@ -48,7 +47,6 @@ const AccountTable = ({search='',handleOpen}) => {
     const accountDetails = await sendGet({ url: `/api/socialAccounts/accounts?search=${search}` });
     
     if (accountDetails?.success) {
-      console.log(accountDetails?.accounts)
       setAccounts(accountDetails?.accounts);
     } else {
       toastError(accountDetails?.message || 'Something went wrong')

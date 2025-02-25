@@ -19,10 +19,9 @@ const handleComment = async (data, id) => {
     // Ignore comments from the same user (self-comments)
     if (id === recipientId) return success();
 
+
     // Fetch automation settings for this mediaId
     const automationsRes = await getByMediaId(mediaId);
-
-    console.log(automationsRes)
 
 
     if (!automationsRes?.success) {
@@ -83,7 +82,8 @@ const handleComment = async (data, id) => {
                         url: imageDefaultAction,
                     },
                     buttons
-                }]
+                }];
+                
                 imgRes = await sendGeneric(access_token,id,{comment_id:commentId}, elements);
             }
 

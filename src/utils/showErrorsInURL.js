@@ -1,27 +1,21 @@
 
 "use client";
 
-import { toastError } from "@/components/custom/toast";
-import { useSearchParams } from "next/navigation";
+import { toastError, toastSuccess } from "@/components/custom/toast";
+
 import { useEffect } from "react";
-import { Suspense } from "react";
 
-const ShowErrors = ({ query = "error", display = true }) => {
-    const searchParams = useSearchParams();
-    const data = searchParams.get(query);
-    useEffect(() => {
-        if (display && data) {
-            toastError(data);
+const ShowErrors = ({ query = "error",success=false }) => {
+    
+    useEffect(()=>{
+        const url = new URL(window.location.href);
+        const data = url.searchParams.get(query);
+        if(data){
+            success ? toastSuccess(data) : toastError(data)
         }
-    }, [data]);
+    },[])
 
-    return null; // This component doesn't need to render anything
+    return <></>;
 };
 
-const ShowErrorsWithSuspense = (props) => (
-    <Suspense fallback={null}>
-        <ShowErrors {...props} />
-    </Suspense>
-);
-
-export default ShowErrorsWithSuspense;
+export default ShowErrors;

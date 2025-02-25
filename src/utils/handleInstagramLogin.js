@@ -4,8 +4,8 @@ import { toastError } from "@/components/custom/toast";
 
 const instagramLogin = () => {
     return new Promise((resolve, reject) => {
-        // const authUrl = `https://xerobot.in/redirect?code="sdfsdfsdf"`;
-        const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
+        const redirectUri = process.env.NEXT_PUBLIC_APP_DOMAIN+'/redirect'
+        const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${redirectUri}&response_type=code&scope=${process.env.NEXT_PUBLIC_INSTAGRAM_PERMISSIONS}`;
 
         const width = 600, height = 700;
         const left = (window.innerWidth - width) / 2;
@@ -23,10 +23,11 @@ const instagramLogin = () => {
             return;
         }
 
-        const checkPopup = setInterval(() => {
-            if (win.closed) {
-                clearInterval(checkPopup);
-                resolve(true);
+        setInterval(() => {
+            const data = window.localStorage.getItem('instagram_auth_code');
+            if (data) {
+                window.localStorage.removeItem('instagram_auth_code');
+                resolve(data);
             }
         }, 500);
     });
@@ -35,10 +36,9 @@ const instagramLogin = () => {
 
 const handleInstagramLogin = async () => {
     try {
-        const res = await instagramLogin();
-        const code = window.localStorage.getItem('instagram_auth_code');
-        if(res && code){
-            window.location.href=`/api/instagram/auth/callback?code=${code}`;        
+        const code = await instagramLogin();
+        if(code){
+            window.location.href=`${process.env.NEXT_PUBLIC_APP_DOMAIN}/api/instagram/auth/callback?code=${code}`;        
         }else{
             toastError("Instagram Login Failed");
         }

@@ -57,7 +57,7 @@ const getByMediaId = async (mediaId) => {
         }
     }
     try {
-        connectDB();
+        await connectDB();
         const automations = await Automations.find({ mediaId })
         .populate({
             path: 'accountId', 

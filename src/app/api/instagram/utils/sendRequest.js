@@ -39,6 +39,7 @@ const sendPost = async (url,payload,accessToken) => {
                 'Content-Type': 'application/json',
             }
         });
+        console.log(response?.data)
         return {
             success: true,
             data: response?.data

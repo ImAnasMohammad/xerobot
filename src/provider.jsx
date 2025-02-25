@@ -26,7 +26,6 @@ export function LoadingProvider({ children }) {
   useEffect(() => {
     setProgress(30);
     const timer = setTimeout(() => setProgress(100), 500);
-    console.log("first")
     return () => clearTimeout(timer);
   }, [pathname]);
 

@@ -7,8 +7,9 @@ import AccountTable from '@/components/custom/Account/AccountsTable';
 import CustomDailog from '@/components/custom/dailog/CustomDailog';
 import AccountsTypes from '@/components/custom/Account/AccountsTypes';
 import HeadingWithSearch from '../HeadingWithSearch';
-import ShowErrorsWithSuspense from '@/utils/showErrorsInURL';
+import ShowErrors from '@/utils/showErrorsInURL';
 import handleInstagramLogin from '@/utils/handleInstagramLogin';
+import { toastError } from '@/components/custom/toast';
 
 const page = () => {
   const [search, setSearch] = useState('');
@@ -28,9 +29,10 @@ const page = () => {
     setAccountLinkLoading(true);
   }
 
+  
   return (
     <Box px={7} py={10}>
-      <ShowErrorsWithSuspense/>
+      <ShowErrors display={true}/>
       <HeadingWithSearch
         path={['Home', 'My Accounts']}
         heading={'My Accounts'}

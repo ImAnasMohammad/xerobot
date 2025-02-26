@@ -12,7 +12,7 @@ const useColors = ()=>{
 
     const whiteBgLight='#ffff'
     const bgLight = '#ececec';
-    const textLight='#00000';
+    const textLight='#000';
     
     const textShadedLight = "#A0A0A0";
     const textUltraShadedLight='#949494'

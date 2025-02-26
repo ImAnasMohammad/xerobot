@@ -89,7 +89,7 @@ const Navbar = () => {
         {/* Action Buttons */}
         <Flex alignItems="center" gap={3}>
           <NextLink href="/login" passHref>
-            <Button borderRadius="20px" fontSize="16px" px={6} py={2}>
+            <Button borderRadius="20px" fontSize="16px" px={6} py={2} color={'#000'} bg={'#fff'}>
               Get Started
             </Button>
           </NextLink>

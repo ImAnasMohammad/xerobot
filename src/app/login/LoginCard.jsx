@@ -7,7 +7,7 @@ import useColors from "@/hooks/useColors"
 import Link from "next/link"
 
 export default function LoginCard(){
-    const {bgShadedDark} = useColors()
+    const {bgShadedDark,textDark,textLight} = useColors()
     return <Flex
         as={'div'}
         bg={useColorModeValue('',bgShadedDark)}
@@ -16,7 +16,7 @@ export default function LoginCard(){
         alignItems={'center'}
     >
         <Flex as={'div'} gap={10} flexDirection={'column'} alignItems={'center'}>
-            <Text color={useColorModeValue('#ffff')} fontSize={'3xl'} as={'h1'} fontWeight={'bold'} textTransform={'capitalize'}>
+            <Text color={useColorModeValue(textLight,textDark)} fontSize={'3xl'} as={'h1'} fontWeight={'bold'} textTransform={'capitalize'}>
                 Welcome Back to Xerobyte
             </Text>
             <Flex gap={5} w="300px" direction={'column'} mb={20}>

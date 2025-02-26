@@ -3,13 +3,14 @@
 import PageHeading from '@/components/custom/PageHeading';
 import { Box, Flex } from '@chakra-ui/react';
 
-import { User } from 'lucide-react';
+import { Check, User, Workflow } from 'lucide-react';
 import { sendGet } from '@/utils/sendRequest';
 import { useEffect, useState } from 'react';
 import InstagramActivity from './InstagramActivity';
 import Card from './Card';
-import { toastError, toastSuccess } from '@/components/custom/toast';
+import { toastError } from '@/components/custom/toast';
 import SeoMeta from '@/components/custom/SEOMeta';
+
 
 
 
@@ -86,12 +87,12 @@ const page = () => {
     {
       name:"Total Automations",
       value:totalAutomations,
-      icon:<User size={'30px'}/>
+      icon:<Workflow size={'30px'}/>
     },
     {
       name:"Average Success Rate",
       value:averageSccessRate,
-      icon:<User size={'30px'}/>,
+      icon:<Check size={'30px'}/>,
       unit:"%"
     }
   ]
@@ -101,7 +102,7 @@ const page = () => {
   <>
     <SeoMeta title={'Dashboard - Xerobot'}/>
     <Box px={7} py={10}>
-      <PageHeading path={[]}>Hey, there</PageHeading>
+      <PageHeading path={[]}>Hey, There</PageHeading>
       <Flex gap={4} flexWrap={'wrap'} py={10}>
         {
           items.map(item=><Card key={item.name} item={item} boxShadow='xs' />)

@@ -1,4 +1,6 @@
+'use client'
 import { toastError } from "@/components/custom/toast";
+
 
 const showError = (query)=>{
     const urlParams = new URLSearchParams(window.location.search);

@@ -9,7 +9,6 @@ import AccountsTypes from '@/components/custom/Account/AccountsTypes';
 import HeadingWithSearch from '../HeadingWithSearch';
 import ShowErrors from '@/utils/showErrorsInURL';
 import handleInstagramLogin from '@/utils/handleInstagramLogin';
-import { toastError } from '@/components/custom/toast';
 
 const page = () => {
   const [search, setSearch] = useState('');

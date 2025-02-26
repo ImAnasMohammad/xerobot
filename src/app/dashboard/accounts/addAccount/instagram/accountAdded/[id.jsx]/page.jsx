@@ -21,8 +21,9 @@ const page = () => {
 
     const getDetails = async ()=>{
         try{
-            const res = await axios.get(`${NEXT_PUBLIC_APP_DOMAIN}/api/socialAccounts?id=${id}`);
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_APP_DOMAIN}/api/socialAccounts?id=${id}`);
             const {data,message=null} = res.data;
+            console.log(res)
             if(message===null){
                 setImg(data.accountProfile);
                 setName(data.accountUserName);
@@ -37,6 +38,7 @@ const page = () => {
                 setErr(message);
             }
         }catch(error){
+            console.log(error)
             setErr(error.message);
         }finally{
             if(err){

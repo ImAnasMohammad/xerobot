@@ -37,10 +37,7 @@ const instagramLogin = () => {
 
 const handleInstagramLogin = async () => {
     try {
-        // const code = await instagramLogin();
-        const code = 'sdfsdfsdfsdf'
-        // await instagramLogin();
-        console.log(code)
+        const code = await instagramLogin();
         if(code){
             console.log(code)
             const url = `${process.env.NEXT_PUBLIC_APP_DOMAIN}/api/instagram/auth/callback?code=${code}`;

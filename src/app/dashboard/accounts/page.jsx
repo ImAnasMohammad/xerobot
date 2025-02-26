@@ -7,6 +7,7 @@ import AccountTable from '@/components/custom/Account/AccountsTable';
 import CustomDailog from '@/components/custom/dailog/CustomDailog';
 import AccountsTypes from '@/components/custom/Account/AccountsTypes';
 import HeadingWithSearch from '../HeadingWithSearch';
+import ShowErrors from '@/utils/showErrorsInURL';
 import handleInstagramLogin from '@/utils/handleInstagramLogin';
 import showError from '@/utils/showErrorsInURL';
 
@@ -29,6 +30,7 @@ const page = () => {
   }
 
   showError("error")
+
   
   return (
     <Box px={7} py={10}>

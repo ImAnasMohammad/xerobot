@@ -104,7 +104,7 @@ const page = () => {
       <PageHeading path={[]}>Hey, there</PageHeading>
       <Flex gap={4} flexWrap={'wrap'} py={10}>
         {
-          items.map(item=><Card key={item.name} item={item}/>)
+          items.map(item=><Card key={item.name} item={item} boxShadow='xs' />)
         }
       </Flex>
       <InstagramActivity accounts={accounts} averageSccessRate={averageSccessRate}/>

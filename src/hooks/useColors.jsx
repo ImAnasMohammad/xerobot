@@ -9,6 +9,14 @@ const useColors = ()=>{
     const textShadedDark = "#F7F7F7";
     const textUltraShadedDark = "#949494";
 
+
+    const whiteBgLight='#ffff'
+    const bgLight = '#ececec';
+    const textLight='#00000';
+    
+    const textShadedLight = "#A0A0A0";
+    const textUltraShadedLight='#949494'
+
     return{
         bgDark,
         bgShadedDark,
@@ -16,7 +24,15 @@ const useColors = ()=>{
         mainColor,
         textDark,
         textShadedDark,
-        textUltraShadedDark
+        textUltraShadedDark,
+
+
+
+        bgLight,
+        textLight,
+        whiteBgLight,
+        textUltraShadedLight,
+        textShadedLight,
 
     }
 }

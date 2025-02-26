@@ -4,12 +4,24 @@ import { InfoTip } from "@/components/ui/toggle-tip";
 import useColors from "@/hooks/useColors";
 import { Flex, Text } from "@chakra-ui/react";
 
-const Card = ({ item,p=4 }) => {
+const Card = ({ item,p=4,boxShadow='lg' }) => {
     const { name, value, icon, info, unit,helperText } = item;
-    const { mainColor, textUltraShadedDark, bgUltraShadedDark } = useColors()
-    return <Flex gap={10} alignItems={'center'} justifyContent={'space-between'} p={p} px={10} bgColor={bgUltraShadedDark} minW={'300px'} maxW={'400px'} width={'fit'} borderRadius={'md'}>
+    const { mainColor, textUltraShadedDark, bgUltraShadedDark,textShadedLight,whiteBgLight } = useColors()
+    return <Flex
+        gap={10}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+        p={p}
+        px={10}
+        bgColor={useColorModeValue(whiteBgLight,bgUltraShadedDark)}
+        minW={'300px'}
+        maxW={'400px'}
+        width={'fit'}
+        borderRadius={'md'}
+        boxShadow={boxShadow}
+    >
         <Flex as={'div'} flexDirection={'column'} gap={0}>
-            <Text fontSize={'sm'} as={'div'} color={useColorModeValue('#ffff', textUltraShadedDark)}>
+            <Text fontSize={'sm'} as={'div'} color={useColorModeValue(textShadedLight, textUltraShadedDark)}>
                 {name}
                 {
                     info && <InfoTip>{info}</InfoTip>
@@ -21,7 +33,7 @@ const Card = ({ item,p=4 }) => {
                     value===null ? <Skeleton h={'30px'} w={"15px"} display={'inline-block'}/>:value
                 }
                 {
-                    unit && <Text as='span' color={useColorModeValue('#ffff', textUltraShadedDark)} fontSize={'md'} ml={1}>{unit}</Text>
+                    unit && <Text as='span' color={useColorModeValue(textShadedLight, textUltraShadedDark)} fontSize={'md'} ml={1}>{unit}</Text>
                 }
                 {
                     helperText && <Text fontSize={'xs'} fontWeight={'medium'} color={useColorModeValue('#ffff', textUltraShadedDark)}>{helperText}</Text>
@@ -29,7 +41,7 @@ const Card = ({ item,p=4 }) => {
             </Text>
         </Flex>
         {
-            icon && <Text fontSize={'lg'} bgColor={mainColor} p={4} borderRadius={'md'}>
+            icon && <Text fontSize={'lg'} bgColor={mainColor} p={4} borderRadius={'md'} color={'#ffff'}>
                 {
                     icon
                 }

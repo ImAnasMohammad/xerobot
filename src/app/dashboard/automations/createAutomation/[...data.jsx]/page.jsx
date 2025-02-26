@@ -10,12 +10,13 @@ import { toastError, toastSuccess } from '@/components/custom/toast';
 import { isValidURL } from '@/utils/validate';
 import { automationTypes } from '@/utils/automationTypes';
 import useColors from '@/hooks/useColors';
+import { useColorModeValue } from '@/components/ui/color-mode';
 
 const page = () => {
   let router = usePathname().split('/');
   const id = router.pop().toLocaleLowerCase();
   const type = router.pop(2).toLocaleLowerCase();
-  const {textUltraShadedDark} = useColors();
+  const {textUltraShadedDark,textUltraShadedLight} = useColors();
 
   if(!automationTypes?.includes(type)){
     return <Flex
@@ -25,7 +26,7 @@ const page = () => {
       direction={'column'}
     >
       <Text fontSize={'6xl'}>Oops!...</Text>
-      <Text fontSize={'xs'} color={textUltraShadedDark}>This kind of automation not exist</Text>
+      <Text fontSize={'xs'} color={useColorModeValue(textUltraShadedLight,textUltraShadedDark)}>This kind of automation not exist</Text>
     </Flex>
   }
 

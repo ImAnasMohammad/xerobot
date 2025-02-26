@@ -11,7 +11,7 @@ const Heading = ({
     headingStyles={},
     subHeadingStyles={}
 }) => {
-    const {textUltraShadedDark} = useColors();
+    const {textUltraShadedDark,textUltraShadedLight} = useColors();
   return (
     <Flex flexDir={'column'} alignItems={'center'} gap={1}>
         <Text
@@ -24,7 +24,7 @@ const Heading = ({
             }
         </Text>
         <Text
-            color={useColorModeValue('red',textUltraShadedDark)}
+            color={useColorModeValue(textUltraShadedLight,textUltraShadedDark)}
             style={subHeadingStyles}
         >
             {

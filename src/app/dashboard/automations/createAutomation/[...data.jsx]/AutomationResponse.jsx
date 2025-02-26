@@ -7,9 +7,10 @@ import CommmentReply from './components/CommmentReply';
 import DirectReply from './components/DirectReply';
 import LinkReply from './components/LinkReply';
 import InputForAutomation from './components/InputForAutomation';
+import { useRouter } from 'next/navigation';
 
 const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, loading }) => {
-  const { bgShadedDark } = useColors();
+  const { bgShadedDark,bgLight } = useColors();
 
   const tempTriggers = ['Link','DM','Send','Join','Details'];
 
@@ -26,7 +27,7 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
       py={5}
       px={5}
       pr={10}
-      border={`1px solid ${useColorModeValue('#0000', bgShadedDark)}`}
+      border={`1px solid ${useColorModeValue(bgLight, bgShadedDark)}`}
       overflow={'auto'}
       maxWidth={'600px'}
       flexDirection={'column'}
@@ -98,10 +99,10 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
 
 
 const PoliteRemidnerMessage = ()=>{
-  const {textUltraShadedDark} = useColors();
+  const {textUltraShadedDark,textUltraShadedLight} = useColors();
   return <Box>
     <Text fontSize={'md'} fontWeight={'bold'}>✨ Friendly Reminder:</Text>
-    <Text fontSize={'sm'} mt={2} color={useColorModeValue('red',textUltraShadedDark)}>
+    <Text fontSize={'sm'} mt={2} color={useColorModeValue(textUltraShadedLight,textUltraShadedDark)}>
       Please ensure that your messages are polite, respectful, and professional. 🙏
       Also, kindly review and comply with Instagram’s Privacy Policy & Community Guidelines to ensure a seamless experience. ✅
       Happy Automating! 🚀
@@ -110,8 +111,16 @@ const PoliteRemidnerMessage = ()=>{
 }
 
 const ButtonSection = ({loading,handleSubmit})=>{
+  const router = useRouter();
   return<Flex width={'100%'} justifyContent={'space-between'}>
-  <Button fontSize={'md'} style={{ letterSpacing: '.5px' }} width={'90px'} variant='outline' disabled={loading} >Back</Button>
+  <Button
+    fontSize={'md'}
+    style={{ letterSpacing: '.5px' }}
+    width={'90px'}
+    variant='outline'
+    disabled={loading}
+    onClick={() => router.back()}
+  >Back</Button>
   <Button
     fontSize={'md'}
     style={{ letterSpacing: '.5px' }}

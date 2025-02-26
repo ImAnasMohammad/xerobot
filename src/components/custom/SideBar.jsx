@@ -26,10 +26,10 @@ import { toast } from 'react-toastify';
 import { sendGet } from '@/utils/sendRequest';
 
 const Sidebar = () => {
-    const { mainColor, bgShadedDark } = useColors()
+    const { mainColor, bgShadedDark,whiteBgLight,bgLight,textLight } = useColors()
     const [isExpanded, setIsExpanded] = useState(false);
-    const bgColor = useColorModeValue('#0d9488', bgShadedDark); // Using the primary color specified
-    const textColor = useColorModeValue('white', 'gray.200');
+    const bgColor = useColorModeValue(whiteBgLight, bgShadedDark); // Using the primary color specified
+    const textColor = useColorModeValue(textLight, 'gray.200');
     const [loading, setLoading] = useState(false);
 
     const [activeLink, setActiveLink] = useState("");
@@ -40,7 +40,6 @@ const Sidebar = () => {
         setLoading(true)
         try {
             const res = await sendGet({ url: `/api/logout` });
-            console.log(res)
             if (res?.success) {
                 router.push('/')
             } else {
@@ -53,7 +52,6 @@ const Sidebar = () => {
         } finally {
             setLoading(false)
         }
-
     }
 
     const handleRedirect = () => {
@@ -98,7 +96,7 @@ const Sidebar = () => {
                     bg={'transparent'}
                     mb={6}
                     color={useColorModeValue('#000', '#ffff')}
-                    _hover={{ bg: useColorModeValue('red', 'gray.700') }}
+                    _hover={{ bg: useColorModeValue(bgLight, 'gray.700') }}
                 >
                     <Menu />
                 </Button>

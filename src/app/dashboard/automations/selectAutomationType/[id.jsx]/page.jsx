@@ -77,7 +77,7 @@ const page = () => {
       <Flex as='div' gap={10} py={10} flexDirection={'column'} >
         <Section heading={'Comment Automations'} items={commentAutomations}/>
         {/* <Section heading={'Story Automations'} items={storyAutomations}/> */}
-        <Section heading={'Message Automations'} items={messageAutomation}/>
+        {/* <Section heading={'Message Automations'} items={messageAutomation}/> */}
       </Flex>
     </Box>
   )

@@ -1,4 +1,5 @@
-import Main from "./Main"
+import Main from "./Main" ;
+import { Suspense } from "react";
 
 
 export const metadata = {
@@ -29,9 +30,13 @@ export const metadata = {
   };
   
 
-const page = ()=>{
-    return <Main/>
+
+  
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Main />
+    </Suspense>
+  );
 }
-
-
-export default page
+  

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Box } from '@chakra-ui/react';
 import React, { useState } from 'react';
@@ -18,14 +18,17 @@ const Main = () => {
 
     const handleCloseAccountDailog = () => {
         setAccountLinkLoading(false);
-        setSelectedAccountType('')
+        setSelectedAccountType('');
         setOpen(false);
-    }
+    };
 
     const handleLinkClick = async () => {
-        handleInstagramLogin()
-    }
-
+        if (typeof handleInstagramLogin === 'function') {
+            handleInstagramLogin();
+        } else {
+            console.error("handleInstagramLogin is not a function. Check the import.");
+        }
+    };
 
     return (
         <Box px={7} py={10}>
@@ -53,7 +56,7 @@ const Main = () => {
                 <AccountsTypes loading={accountLinkLoading} value={selectedAccountType} setValue={setSelectedAccountType} />
             </CustomDailog>
         </Box>
-    )
-}
+    );
+};
 
-export default Main
+export default Main;

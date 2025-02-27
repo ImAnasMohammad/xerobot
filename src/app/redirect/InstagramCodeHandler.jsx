@@ -8,8 +8,7 @@ export default function InstagramCodeHandler() {
 
     useEffect(() => {
         if (code) {
-            window.localStorage.setItem('instagram_auth_code',code);
-            window.close();
+            window.location.href=`${process.env.NEXT_PUBLIC_APP_DOMAIN}/api/instagram/auth/callback?code=${code}`
         }
     }, [code]);
 

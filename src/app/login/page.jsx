@@ -30,11 +30,6 @@ export const metadata = {
 };
 
 const LoginPage = () => {
-  const handleFacebookLogin = () => {
-    console.log("Facebook login triggered");
-    // Add your Facebook login functionality here
-  };
-
   return <Main/>
 
 };

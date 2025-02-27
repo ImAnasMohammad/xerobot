@@ -32,7 +32,7 @@ export default function HeroSection() {
         left: 0,
         right: 0,
         bottom: 0,
-        bg: 'rgba(0, 0, 0, 0.0)', // Adjust the opacity and color here
+        bg: 'rgba(0, 0, 0, 0.0)',
         zIndex: 0,
       }}
     >
@@ -49,7 +49,7 @@ export default function HeroSection() {
       > </Box>
       <Flex
         position="relative"
-        zIndex={1} // Ensure the content is above the overlay
+        zIndex={1}
         maxW="container.xl"
         flexDirection={'column'}
         justifyContent={'center'}
@@ -61,7 +61,7 @@ export default function HeroSection() {
       >
         <Heading
           as="h1"
-          size="6xl"
+          size={{smDown:'3xl',sm:'4xl',md:'6xl'}}
           mb={6}
           maxWidth={1000}
           color={'#ffff'}

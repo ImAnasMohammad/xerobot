@@ -25,6 +25,7 @@ const handleGet = async (req) => {
 
     if (search) {
         query = {
+            userId,
             $or: [
                 { accountName: { $regex: search, $options: "i" } },
                 { accountUserName: { $regex: search, $options: "i" } },

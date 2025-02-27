@@ -16,6 +16,11 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const code = searchParams.get("code");
 
+    const userDetails = await getCookie(req);
+    if (!userDetails?.success) {
+        return redirect('/login?error=Session expired please relogin.');
+    }
+
     if (!code) {
         return errorRedirect("Authorization code not found");
     }
@@ -25,7 +30,6 @@ export async function GET(req) {
 
 
     if (!shortToken?.success) {
-        console.log()
         return errorRedirect(shortToken?.message);
     }
 
@@ -37,10 +41,7 @@ export async function GET(req) {
         return errorRedirect(accountDetailsRes?.message);
     }
 
-    const userDetails = await getCookie(req);
-    if (!userDetails?.success) {
-        return redirect('/login?error=Session expired please relogin.');
-    }
+    
     const userId = userDetails?.data?.payload?.id;
 
     const checkInstagramLink = await checkInstagramAccount(accountDetailsRes.id,userId);

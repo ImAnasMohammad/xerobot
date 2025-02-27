@@ -1,16 +1,26 @@
-// src/utils/showErrorsInURL.js
-"use client"; // Ensure this runs on the client
+'use client';
 
-import { toastError } from "@/components/custom/toast";
+import { useSearchParams } from 'next/navigation';
+import { toastError } from '@/components/custom/toast';
+import { useEffect, useState } from 'react';
 
-const showError = (query) => {
-  if (typeof window !== "undefined") { // Ensure window is defined
-    const urlParams = new URLSearchParams(window.location.search);
-    const error = urlParams.get(query);
-    if (error) {
-      toastError(error);
-    }
-  }
+const ShowErrors = () => {
+  const searchParams = useSearchParams();
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const error = searchParams.get('error');
+      if (error) {
+        setErrorMessage(error);
+        toastError(error);
+      }
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [searchParams]);
+
+  return null;
 };
 
-export default showError;
+export default ShowErrors;

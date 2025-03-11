@@ -8,9 +8,11 @@ import checkInstagramAccount from "@/app/api/socialAccounts/checkInstagramAccoun
 
 export async function GET(req) {
 
+    const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN
+
 
     const errorRedirect = (err) => {
-        return redirect(req, `/dashboard/accounts?error=${err}`);
+        return redirect(req, `${baseUrl}/dashboard/accounts?error=${err}`);
     };
 
     const { searchParams } = new URL(req.url);
@@ -18,7 +20,7 @@ export async function GET(req) {
 
     const userDetails = await getCookie(req);
     if (!userDetails?.success) {
-        return redirect('/login?error=Session expired please relogin.');
+        return redirect(`${baseUrl}/login?error=Session expired please relogin.`);
     }
 
     if (!code) {

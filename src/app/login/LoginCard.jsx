@@ -5,6 +5,7 @@ import LoginWithGoogle from "./GoogleLogin/LoginWithGoogle"
 import { Flex, Text } from "@chakra-ui/react"
 import useColors from "@/hooks/useColors"
 import Link from "next/link"
+import LoginWithFacebook from "./FacebookLogin/LoginWithFacebook"
 
 export default function LoginCard(){
     const {bgShadedDark,textDark,textLight} = useColors()
@@ -19,7 +20,8 @@ export default function LoginCard(){
             <Text color={useColorModeValue(textLight,textDark)} fontSize={'3xl'} as={'h1'} fontWeight={'bold'} textTransform={'capitalize'}>
                 Welcome Back to Xerobyte
             </Text>
-            <Flex gap={5} w="300px" direction={'column'} mb={20}>
+            <Flex gap={10} w="300px" direction={'column'} mb={20}>
+                <LoginWithFacebook/>
                 <LoginWithGoogle/>
             </Flex>
             <Flex justifyContent={'space-between'} w={'100%'} flex={'1 1 auto'} >

@@ -2,11 +2,6 @@ import { automationTypes } from '@/utils/automationTypes';
 
 const mongoose = require('mongoose');
 
-const buttonSchema = new mongoose.Schema({
-  title: { type: String,default:'Click me' },
-  url: { type: String },
-  type:{type:String,default:"web_url"},
-});
 
 const AutomationSchema = new mongoose.Schema({
   userId: {
@@ -31,29 +26,11 @@ const AutomationSchema = new mongoose.Schema({
   mediaId: {
     type: String,
     required: true,
-    unique: true,
   },
   trigger: {
     type: String,
     required: true,
   },
-  commentReply: {
-    type: String,
-  },
-  message: {
-    type: String,
-  },
-  askToFollow:{
-    type:Boolean
-  },
-  initialMessage: {
-    type: String,
-  },
-  buttons:{type:[buttonSchema]},
-  imageUrl:{type:String},
-  imageTitle:{type:String},
-  imageSubTitle:{type:String},
-  imageDefaultAction:{type:String},
   receivedCount:{
     type:Number,
     default:0,

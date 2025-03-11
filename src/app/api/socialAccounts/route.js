@@ -31,7 +31,6 @@ export async function GET(req) {
                 obj[fields[i]]=1;
             }
         }
-        console.log(isAnyError)
 
         if(isAnyError){
             return sendResponse({status:404,message:`Invalid filed ${isAnyError}`});
@@ -44,8 +43,7 @@ export async function GET(req) {
         }
         await connectDB();
         const account = await SocialMediaAccounts.findById(id,obj);
-        return sendResponse({data:account})
-        return sendResponse({data:'ok'})
+        return sendResponse({data:account});
     } catch (error) {
         console.log("Error occured at get username and profile",error)
 

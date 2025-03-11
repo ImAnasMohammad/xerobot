@@ -28,7 +28,7 @@ const AccountTable = ({search='',handleOpen}) => {
   const handleClick = async (id, action) => {
     let res = {}
     if(action==='DELETE'){
-      await handleDelete(id,accounts,setAccounts,setDeleteLoading);
+      res = await handleDelete(id,accounts,setAccounts,setDeleteLoading);
       setOpen(false);
     }else if(action==='STATUS' ){
       res = await handleStatus(id);
@@ -37,6 +37,7 @@ const AccountTable = ({search='',handleOpen}) => {
       }
     }
 
+    console.log(res)
     if(!res?.success){
       toastError(res?.message || "Something went wrong");
       return;

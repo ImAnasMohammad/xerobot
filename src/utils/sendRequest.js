@@ -6,14 +6,21 @@ import axios from "axios";
  */
 
 const handleError = (error) => {
-    console.log(error)
+    console.log(error);
     if (error.response) {
         if(error.response?.status===404){
+            if(error.response?.data?.message){
+                return {
+                    message: error.response?.data?.message,
+                    success: false
+                } 
+            }
             return {
                 message: "Unable to find the Page you looking for",
                 success: false
             }
         }
+        console.log(error?.response?.data)
         return {
             ...error.response?.data || 'Something went wrong.',
             success: false
@@ -35,6 +42,7 @@ const handleError = (error) => {
  */
 const   sendPost = async ({url,payload={},accessToken,type="Bearer",contentType='application/json'}) => {
     
+    
     const headers = {
         'Content-Type': contentType,
     }
@@ -46,10 +54,12 @@ const   sendPost = async ({url,payload={},accessToken,type="Bearer",contentType=
     }
     try {
         const response = await axios.post(url, {...payload}, {headers});
+        console.log(response)
         return {
             ...response?.data
         }
     } catch (error) {
+        console.log(error)
         return handleError(error);
     }
 }

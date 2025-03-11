@@ -8,6 +8,9 @@ import { getByMediaId } from "../../automations/handleGet";
 import { incrementCount } from "../../automations/handlePut";
 import { decrypt } from "@/utils/encryption";
 import { updateResetPermissions } from "../../socialAccounts/accounts/handlePut";
+import getReplyCommentResponse from "../../automations/getResponse/replyCommentResponse";
+import getDMCommentResponse from "../../automations/getResponse/DMCommentResponse";
+import getBlendCommentResponse, { covertButtons } from "../../automations/getResponse/blendCommentResponse";
 
 const handleComment = async (data, id) => {
     const mediaId = data?.media?.id;
@@ -30,6 +33,7 @@ const handleComment = async (data, id) => {
 
     // Process automation triggers
     for (const automation of automationsRes?.automations || []) {
+
         if (automation?.trigger?.toLowerCase() === text?.toLowerCase()) {
             
             // Increment received count for automation tracking
@@ -37,64 +41,64 @@ const handleComment = async (data, id) => {
 
             const access_token = decrypt(automation?.accountId?.accessKey);
 
-            const { commentReply = null, message = null,imageUrl='' } = automation;
+            let replyCommentRes = null;
+            let DMCommentRes = null;
+            let blendCommentRes = null;
 
-            let commentReplyRes = null;
-            let textRes = null;
-            let linkRes = null;
-            let imgRes = null;
-
-            let buttons = automation?.buttons || [];
-            buttons = buttons.map(button=> {
-                return {
-                    type:button.type,
-                    title:button.title,
-                    url:button.url
+            if(automation?.type === 'reply-comment'){
+                const commentReplyRes = await getReplyCommentResponse(automation._id);
+                if(commentReplyRes?.success){
+                    const {reply} = commentReplyRes.commentReply;
+                    replyCommentRes = await sendCommentReply(access_token, commentId, reply);
                 }
-            })
-
-            // Perform comment reply (if enabled)
-            if (commentReply) {
-                commentReplyRes = await sendCommentReply(access_token, commentId, commentReply);
+            }
+            
+            if(automation?.type === 'dm-comment'){
+                const commentDMRes = await getDMCommentResponse(automation._id);
+                if(commentDMRes?.success){
+                    const {dm} = commentDMRes.commentDM;
+                    DMCommentRes = await sendText(access_token,id, {comment_id:commentId}, dm);
+                }
             }
 
-            //send plain text message (if configured)
-            if (!buttons?.length > 0 && message) {
-                textRes = await sendText(access_token,id, {comment_id:commentId}, message);
+            if(automation?.type === 'blend-comment'){
+                const commentBlendRes = await getBlendCommentResponse(automation._id);
+                if(commentBlendRes?.success){
+                    const {reply='',dm=''} = commentBlendRes.commentBlend;
+                    let buttons = covertButtons(commentBlendRes.commentBlend.buttons || []);
+                    DMCommentRes = await sendLinks(access_token, id,{comment_id:commentId},buttons,dm);
+                    if(reply){
+                        replyCommentRes = await sendCommentReply(access_token, commentId, reply);
+                    }
+                }
             }
 
-            // // Send links (if buttons are configured)
-            if (buttons?.length>0 && imageUrl=='') {
-                linkRes = await sendLinks(access_token, id,{comment_id:commentId},buttons,message);
+            if(
+                (replyCommentRes?.success || replyCommentRes===null ) &&
+                (DMCommentRes?.success || DMCommentRes===null ) &&
+                (blendCommentRes?.success || blendCommentRes===null )
+            ){
+                await incrementCount(mediaId, 1);
             }
 
 
 
             // // Send image/generic template (if configured)
-            if (imageUrl!='') {
-                const {imageTitle='',imageSubTitile='',imageDefaultAction=''} = automation
-                const elements = [{
-                    title:imageTitle,
-                    image_url:imageUrl,
-                    subtitle:imageSubTitile,
-                    default_action: {
-                        type: "web_url",
-                        url: imageDefaultAction,
-                    },
-                    buttons
-                }];
+            // if (imageUrl!='') {
+            //     const {imageTitle='',imageSubTitile='',imageDefaultAction=''} = automation
+            //     const elements = [{
+            //         title:imageTitle,
+            //         image_url:imageUrl,
+            //         subtitle:imageSubTitile,
+            //         default_action: {
+            //             type: "web_url",
+            //             url: imageDefaultAction,
+            //         },
+            //         buttons
+            //     }];
                 
-                imgRes = await sendGeneric(access_token,id,{comment_id:commentId}, elements);
-            }
-
-            if(commentReplyRes?.success || textRes?.success || linkRes?.success || imgRes?.success){
-                await incrementCount(mediaId, 1);
-            }
-
-
-            if(commentReplyRes?.resetPermissions || textRes?.resetPermissions || linkRes?.resetPermissions || imgRes?.resetPermissions){
-                await updateResetPermissions(automation.accountId._id,true)
-            }
+            //     imgRes = await sendGeneric(access_token,id,{comment_id:commentId}, elements);
+            // }
 
         }
     }

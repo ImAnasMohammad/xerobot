@@ -62,11 +62,6 @@ const getByMediaId = async (mediaId) => {
             model: SocialMediaAccounts,
             select:'_id accessKey platform'
         })
-        .populate({
-            path: 'userId',
-            model: User,
-            select:'activePlan isActive'
-        });
         if (automations?.length <= 0) {
             return {
                 success: false,

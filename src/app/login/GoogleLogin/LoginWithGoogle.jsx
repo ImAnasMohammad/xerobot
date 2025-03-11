@@ -21,7 +21,7 @@ const LoginWithGoogle = () => {
     const handleGoogleLoginSuccess = async (token) => {
 
         setLoading(true);
-        const res = await sendPost({url:`/api/google/auth/callback`,payload:{...token }});
+        const res = await sendPost({url:`/api/user`,payload:{...token,authType:'google' }});
 
         if (res?.success) {
             router.push('/dashboard')
@@ -45,14 +45,6 @@ const LoginWithGoogle = () => {
         loading ? <div style={{display:'flex',justifyContent:'center'}}>
                     <Spinner size={'lg'}/>
                 </div>:<LoginWithGoogleButton handleClick={login}/>
-        
-
-        // <GoogleLogin
-        //     onSuccess={handleGoogleLoginSuccess}
-        //     onError={handleGoogleLoginError}
-        //     text="continue_with"
-        //     theme='filled_blue'
-        // />
     )
 }
 

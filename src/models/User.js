@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: true,
+        default:''
     },
     name: {
         type: String,
@@ -20,11 +20,11 @@ const userSchema = new mongoose.Schema({
     authType: {
         type: String,
         required: true,
-        enum: ['Facebook', 'Google'],
+        enum: ['facebook', 'google'],
     },
     activePlan: { type: Boolean, default: true },
     isActive:{type:Boolean,default:true},
-    role:{type:Number},
+    role:{type:Number,default:0},
     createdAt: {
         type: Date,
         default: Date.now,

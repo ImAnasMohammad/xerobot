@@ -1,6 +1,5 @@
-import connectDB from "@/components/connections/db.connection";
+
 import Automations from "@/models/Automation";
-import getCookie from "@/utils/cookies/getCookie";
 import sendResponse from "@/utils/sendResponse";
 
 /**

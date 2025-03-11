@@ -9,7 +9,7 @@ export async function middleware(request) {
   const protectedRoutes = ['/dashboard','/api'];
   const currentPath = request.nextUrl.pathname;
 
-  if(currentPath==='/api/google/auth/callback') return NextResponse.next()
+  if(currentPath==='/api/user') return NextResponse.next()
 
   const isAuthenticated = await getCookie(request);
 

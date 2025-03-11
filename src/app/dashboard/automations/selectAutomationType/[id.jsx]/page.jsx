@@ -10,25 +10,25 @@ import { usePathname } from 'next/navigation'
 const page = () => {
   const router = usePathname();
   const id  = router.split('/').pop().toLocaleLowerCase();
-  const commentAutomationUrl = (label) => `/dashboard/automations/createAutomation/${label}/${id}`
-  const messageAutomationUrl = (label) => `/dashboard/automations/message-ground/${id}`
+  const commentAutomationUrl = (label) => `/dashboard/automations/create/comment/${label}/${id}`
+  const messageAutomationUrl = (label) => `/dashboard/automations/create/message/${id}`
   const commentAutomations =[
-    // {
-    //   heading:'Auto-reply for comments',
-    //   description:'Automatically send reply to a comment',
-    //   isPremium:false,
-    //   label:"reply-comment",
-    //   href:commentAutomationUrl('reply-comment'),
-    //   Icon:MessageCircle
-    // },
-    // {
-    //   heading:'Auto DM via comments',
-    //   description:'Automatically send message from comment',
-    //   isPremium:false,
-    //   label:"dm-comment",
-    //   href:commentAutomationUrl('dm-comment'),
-    //   Icon:Send
-    // },
+    {
+      heading:'Auto-reply for comments',
+      description:'Automatically send reply to a comment',
+      isPremium:false,
+      label:"reply-comment",
+      href:commentAutomationUrl('reply-comment'),
+      Icon:MessageCircle
+    },
+    {
+      heading:'Auto DM via comments',
+      description:'Automatically send message from comment',
+      isPremium:false,
+      label:"dm-comment",
+      href:commentAutomationUrl('dm-comment'),
+      Icon:Send
+    },
     {
       heading:'Blended Reply',
       description:'Automatically send comment reply, message, link and Image from comment',

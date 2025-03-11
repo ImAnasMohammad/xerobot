@@ -70,7 +70,7 @@ const processError = (error) => {
  */
 export const sendGet = async ({ url='', params = {},config={} }) => {
     try {
-        const response = await axios.get(url, {params},{...config});
+        const response = await axios.get(url, {params,...config});
         return {
             success: true,
             ...response.data,

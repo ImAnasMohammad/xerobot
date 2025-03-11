@@ -2,23 +2,22 @@ import { Button } from '@/components/ui/button';
 import { useColorModeValue } from '@/components/ui/color-mode';
 import useColors from '@/hooks/useColors';
 import { Box, Flex, Text } from '@chakra-ui/react'
-import React from 'react'
-import CommmentReply from './components/CommmentReply';
-import DirectReply from './components/DirectReply';
-import LinkReply from './components/LinkReply';
 import InputForAutomation from './components/InputForAutomation';
 import { useRouter } from 'next/navigation';
 
-const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, loading }) => {
+const AutomationResponse = ({
+  name='',
+  trigger='',
+  handleSubmit,
+  loading,
+  children,
+  handleValue
+ }) => {
   const { bgShadedDark,bgLight } = useColors();
 
   const tempTriggers = ['Link','DM','Send','Join','Details'];
+  
 
-  const handleValue = (name, value) => {
-    let tempData = { ...automationData };
-    tempData[name] = value
-    setAutomationData(tempData);
-  }
   return (
     <Flex
       as={'div'}
@@ -38,7 +37,7 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
           <InputForAutomation
             heading={'Enter Automation name'}
             name="name"
-            value={automationData['name']}
+            value={name}
             handleValue={handleValue}
             placeholder='Enter your name here...'
             disabled={loading}
@@ -50,7 +49,7 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
           <InputForAutomation
             heading={'Enter Trigger'}
             name="trigger"
-            value={automationData['trigger']}
+            value={trigger}
             handleValue={handleValue}
             placeholder='Enter your trigger here...'
             disabled={loading}
@@ -70,28 +69,9 @@ const AutomationResponse = ({ setAutomationData, automationData, handleSubmit, l
           }
         </Flex>
       </Flex>
-      <Flex pt={5} flexDir={'column'} gap={10}>
-        <Text fontSize={'lg'}>They’ll receive the DM including links</Text>
-        <Flex flexDir={'column'} gap={7}>
-          {/* <ImageReply value={automationData['imageUrl']} handleValue={handleValue} loading={loading}/> */}
-          <CommmentReply value={automationData['commentReply']} handleValue={handleValue} loading={loading}/>
-          <DirectReply value={automationData['message']} handleValue={handleValue} loading={loading}/>
-          <LinkReply url={automationData['url']} title={automationData['title']} handleValue={handleValue} loading={loading} />
-        </Flex>
-        {/* <Box as={'div'} >
-          <SwitchForAutomation
-            value={automationData?.askToFollow}
-            heading={'Ask to Follow to receive the link'}
-            handleValue={handleValue}
-            name={'askToFollow'}
-            disabled={loading}
-          />
-          {
-            automationData?.askToFollow && <InputForAutomation value={automationData['initialMessage']} handleValue={handleValue} name="initialMessage" heading={"Initial message they'll get"} disabled={loading}/>
-          }
-        </Box> */}
-      </Flex>
-      
+      {
+        children
+      }
       <ButtonSection loading={loading} handleSubmit={handleSubmit}/>
     </Flex>
   )

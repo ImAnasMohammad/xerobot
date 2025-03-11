@@ -10,10 +10,12 @@ const handleDelete = async (id,accounts,setAccounts,setLoading)=>{
     setLoading(true)
     const url = `/api/socialAccounts/accounts`;
     const res = await sendDelete({ url, params: { id } });
+    setLoading(false);
     if(res?.success){
         setAccounts([...accounts?.filter(item=>item?._id!=id)]);
+        return {success:true}
     }
-    setLoading(false);
+    return {success:false,message:res?.message || "Something went wrong"};
 }
 
 

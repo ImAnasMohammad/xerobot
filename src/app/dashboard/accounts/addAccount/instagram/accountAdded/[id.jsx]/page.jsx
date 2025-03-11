@@ -21,7 +21,7 @@ const page = () => {
 
     const getDetails = async ()=>{
         try{
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_APP_DOMAIN}/api/socialAccounts?id=${id}`);
+            const res = await axios.get(`/api/socialAccounts?id=${id}`);
             const {data,message=null} = res.data;
             console.log(res)
             if(message===null){

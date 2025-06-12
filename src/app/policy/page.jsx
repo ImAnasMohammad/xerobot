@@ -53,8 +53,8 @@ export default function page() {
         <Heading as="h2" size="lg" mt={6} mb={2}>5. Third-Party APIs</Heading>
         <Text>Our service uses official APIs from:</Text>
         <ListRoot listStyleType={'disc'}>
-          <ListItem><Link color="blue.500" href="https://developers.facebook.com/policy/" isExternal>Facebook Graph API</Link></ListItem>
-          <ListItem><Link color="blue.500" href="https://developers.facebook.com/terms" isExternal>Instagram Basic Display API</Link></ListItem>
+          <ListItem><Link color="blue.500" href="https://developers.facebook.com/policy/" target="_blank">Facebook Graph API</Link></ListItem>
+          <ListItem><Link color="blue.500" href="https://developers.facebook.com/terms" target="_blank">Instagram Basic Display API</Link></ListItem>
         </ListRoot>
         <Text>Your use of these services is subject to the Facebook & Instagram Platform Policies. We operate in compliance with their guidelines and obtain your authorization using OAuth-based login.</Text>
 
@@ -85,8 +85,8 @@ export default function page() {
 
         <Heading as="h2" size="lg" mt={6} mb={2}>11. Contact Us</Heading>
         <Text>
-          📧 <strong>Email:</strong> <Link style={{color:"blue"}}  href="mailto:contact@xerobot.in" >contact@xerobot.in</Link><br />
-          🌐 <strong>Website:</strong> <Link style={{color:"blue"}} href="https://xerobot.in" isExternal>https://xerobot.in</Link>
+          📧 <strong>Email:</strong> <Link style={{color:"blue"}}  href="mailto:contact@xerobot.in" target="_blank" >contact@xerobot.in</Link><br />
+          🌐 <strong>Website:</strong> <Link style={{color:"blue"}} href="https://xerobot.in" target="_blank">https://xerobot.in</Link>
         </Text>
 
         <Heading as="h2" size="lg" mt={6} mb={2}>12. Legal Compliance</Heading>

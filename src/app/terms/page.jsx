@@ -50,7 +50,7 @@ export default function page() {
         <Heading as="h2" size="md" mt={6} color="#0a3d62">5. Data Use</Heading>
         <Text>
           We collect and use your data as described in our{' '}
-          <Link href="https://xerobot.in/privacy-policy.html" isExternal color="#0984e3">
+          <Link href="https://xerobot.in/privacy-policy.html" target="_blank" color="#0984e3">
             Privacy Policy
           </Link>. By using the service, you consent to that policy.
         </Text>

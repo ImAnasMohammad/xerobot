@@ -117,7 +117,7 @@ const FooterItems = ({ heading, items }) => {
                     {
                         items && items.map((item, index) => (
                             <Link
-                                href={item?.link}
+                                href={item?.link ?? ''}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 key={index}

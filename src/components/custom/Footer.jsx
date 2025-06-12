@@ -1,53 +1,194 @@
-import { Box, Container, Heading, Text, Link, VStack, HStack } from "@chakra-ui/react";
-import { FaFacebook, FaDiscord, FaTwitter, FaGithub, FaDribbble } from "react-icons/fa";
+import LogoContainer from "@/app/login/LogoContainer";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import Link from "next/link";
+import { useColorModeValue } from "../ui/color-mode";
+
+
+
+const addressItems = [
+    {
+        label: process.env.NEXT_PUBLIC_CONTACT_MAP_LABEL,
+        link: process.env.NEXT_PUBLIC_CONTACT_MAP_LINK
+    }
+];
+
+const contactItems = [
+    {
+        label: process.env.NEXT_PUBLIC_CONTACT_NUMBER,
+        link: `tel:${process.env.NEXT_PUBLIC_CONTACT_NUMBER}`
+    },
+    {
+        label: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+        link: `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`
+    }
+]
+
+
+const pagesList = [
+    {
+        label: 'Home',
+        link: '/'
+    },
+    {
+        label: 'Login',
+        link: '/login'
+    },
+    // {
+    //     label: 'Features',
+    //     link: '/features'
+    // },
+    {
+        label: 'Pricing',
+        link: '/pricing'
+    }
+];
+
+
+const productsList = [
+{
+        label: 'Instagram',
+        link: '/instagram'
+    },
+    {
+        label: 'Facebook',
+        link: '/facebook'
+    },
+    {
+        label: 'Whatsapp',
+        link: '/whatsapp'
+    }
+]
 
 const Footer = () => {
-  const pages = {
-    heading: "Pages",
-    links: [
-      { name: "Home", link: "/" },
-      { name: "Login", link: "/login" },
-      { name: "Services", link: "#services" },
-      { name: "Contact", link: "/contact-us" },
-    ],
-  };
+    return (
+        <footer style={{ padding: '0px 0px' }}>
+            <FooterHead />
+            <FooterTail />
+        </footer>
+    );
+}
 
-  return (
-    <Box bg="gray.900" color="white" py={8}>
-      <Container maxW="container.xl">
-        <HStack justify="space-between" wrap="wrap" spacing={10}>
-          <Section content={pages} />
-          {/* <Section content={pages} />
-          <Section content={pages} />
-          <Section content={pages} /> */}
-        </HStack>
-        <Box mt={6} py={4} borderTopWidth={1} borderColor="gray.700" textAlign="center">
-          <Text fontSize="sm">© {new Date().getFullYear()} All Rights Reserved.</Text>
-          <HStack justify="center" mt={4} spacing={4}>
-            <Link href="#" aria-label="Facebook" color="gray.400" _hover={{ color: "white" }}><FaFacebook size={20} /></Link>
-            <Link href="#" aria-label="Discord" color="gray.400" _hover={{ color: "white" }}><FaDiscord size={20} /></Link>
-            <Link href="#" aria-label="Twitter" color="gray.400" _hover={{ color: "white" }}><FaTwitter size={20} /></Link>
-            <Link href="#" aria-label="GitHub" color="gray.400" _hover={{ color: "white" }}><FaGithub size={20} /></Link>
-            <Link href="#" aria-label="Dribbble" color="gray.400" _hover={{ color: "white" }}><FaDribbble size={20} /></Link>
-          </HStack>
+
+
+
+const FooterHead = () => {
+    return <Flex
+        justifyContent={'space-between'}
+        flexDir={'column'}
+        md={{
+            flexDirection: 'row'
+        }}
+    >
+        <Flex
+            flexDirection={'column'}
+        >
+            {/* <Box width={'200px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                <LogoContainer />
+            </Box> */}
+            <Flex flexDir={'column'} padding={'20px 30px'} gap={10} alignItems={'flex-start'}>
+                <FooterItems heading={'Address'} items={addressItems}/>
+                <Flex flexDir={'column'} gap={2}>
+                    <FooterItems heading={'Contact'} items={contactItems}/>
+                </Flex>
+            </Flex>
+        </Flex>
+        <Flex
+            flexDirection={'column'}
+            padding={'20px 30px'}
+            gap={20}
+            flexDir={'row'}
+            alignItems={'center'}
+        >
+            <FooterItems heading={'Pages'} items={pagesList} />
+            <FooterItems heading={'Products'} items={productsList}/>
+        </Flex>
+    </Flex>
+}
+
+
+const FooterItems = ({ heading, items }) => {
+    return (
+        <Flex flexDir={'column'} gap={2}>
+            <Text fontSize="xl" fontWeight="medium" color={useColorModeValue('black', 'white')}>
+                {heading}
+            </Text>
+            <Text fontSize="sm" color="gray.500">
+                <Flex flexDir={'column'} gap={2} as={'span'}>
+                    {
+                        items && items.map((item, index) => (
+                            <Link
+                                href={item?.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                key={index}
+                                style={{
+                                    display: 'block',
+                                }}
+                            >
+                                <Text 
+                                    as={'span'}
+                                    _hover={{
+                                        color: useColorModeValue('black', 'white')
+                                    }}
+                                >
+                                    {
+                                        item?.label
+                                    }
+                                </Text>
+                            </Link>
+                        ))
+                    }
+                </Flex>
+            </Text>
+        </Flex>
+    )
+}
+
+const FooterTail = () => {
+    return <Flex
+        justifyContent={'space-between'}
+        fontSize="sm"
+        padding={'8px 20px'}
+        borderTop={'1px solid rgb(47, 47, 47)'}
+        color={'gray.500'}
+        flexDirection={'column'}
+
+        md={{
+            flexDirection: 'row'
+        }}
+    >
+        <Box p={4} textAlign={'center'}>
+            &copy; {new Date().getFullYear()} Xerobot. All rights reserved.
         </Box>
-      </Container>
-    </Box>
-  );
-};
+        <Flex
+            p={4}
+            justifyContent="space-between"
+            maxWidth={'fit-content'}
+            gap={5}
+            sm={{
+                justifyContent:'space-between',
+                maxWidth:'100%',
+            }}
+        >
+            <CustomLink href="/policy">Privacy Policy</CustomLink>
+            <CustomLink href="/terms">Terms of Service</CustomLink>
+            <CustomLink href="/cookie-policy">Cookie Policy</CustomLink>
+        </Flex>
+    </Flex>
+}
 
-const Section = ({ content }) => {
-  const { heading, links=[] } = content;
-  return (
-    <VStack align="start">
-      <Heading as="h2" size="md" textTransform="uppercase" mb={2}>{heading}</Heading>
-      {links.map((item, index) => (
-        <Link key={index} href={item.link} color="gray.400" _hover={{ color: "white" }}>
-          {item.name}
+
+const CustomLink = ({ href, children }) => {
+    return (
+        <Link
+            href={href}
+            style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+        >
+            {children}
         </Link>
-      ))}
-    </VStack>
-  );
-};
-
+    )
+}
 export default Footer;

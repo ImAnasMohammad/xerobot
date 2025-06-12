@@ -5,19 +5,22 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 import ReactFlow, { MiniMap, Controls, Background, addEdge, useNodesState, useEdgesState } from "reactflow";
 import "reactflow/dist/style.css";
 import MessageNode from "./MessageNode";
+import EdgeDeleteButton from "./EdgeDeleteButton";
 import { FaPlus } from "react-icons/fa";
 import useColors from "@/hooks/useColors";
 import EditNodeDrawer from "../EditNodeDrawer";
 import hasCycle from "./hasLoop";
 import removeUnconnectedNodes from "./removeUnLinedNodes";
-import EdgeDeleteButton from "../EdgeDeleteButton";
+// import EdgeDeleteButton from "../EdgeDeleteButton";
 import { sendPost } from "@/utils/sendRequest";
-import { useSearchParams } from "next/navigation";
 
 const nodeTypes = {
     messageNode: MessageNode
 };
 
+const edgeTypes = {
+    buttonEdge: <button>Hello</button>,
+};
 
 const initialNodes = [];
 
@@ -29,7 +32,6 @@ const ChatbotFlow = ({id}) => {
     const [editData, setEditData] = useState(null);
     const [deleteButtonData, setDeleteButtonData] = useState(null);
     
-    console.log(id)
 
     const handleSelect = (msg, data) => setEditData(data);
     const handleCloseSelect = () => setEditData(false);
@@ -102,6 +104,8 @@ const ChatbotFlow = ({id}) => {
               console.log("Cycle detected, not adding edge.");
               return eds;
             }
+
+            console.log(edges)
       
             return addEdge(params, eds);
           });
@@ -146,7 +150,7 @@ const ChatbotFlow = ({id}) => {
                     handleEditNode={handleEditNode}
                     handleDeleteNode={handleDeleteNode}
                 />
-                <EdgeDeleteButton data={deleteButtonData}/>
+                {/* <EdgeDeleteButton data={deleteButtonData}/> */}
                 <Flex
                     position="absolute"
                     zIndex="1"
@@ -176,6 +180,7 @@ const ChatbotFlow = ({id}) => {
                     onEdgesChange={onEdgesChange}
                     onNodeClick={handleSelect}
                     onConnect={onConnect}
+                    edgeTypes={edgeTypes}
                     nodeTypes={nodeTypes}
                     fitView
                     onEdgeMouseEnter={handleEdgeMouseEnter}

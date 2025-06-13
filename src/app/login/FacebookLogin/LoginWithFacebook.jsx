@@ -40,7 +40,9 @@ const LoginWithFacebook = () => {
     }
 
     
-    const handleError = ()=>{
+    const handleError = (e)=>{
+
+        console.log(e)
         toastError("Facebook login failed.")
         setLoading(0)
     }
@@ -61,7 +63,7 @@ const LoginWithFacebook = () => {
             {
                 loading ==0 ?
                     <FacebookLogin
-                        appId={1828140087756162}
+                        appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}
                         onSuccess={handleSuccess}
                         onFail={handleError}
                         onProfileSuccess={handleProfileSuccess}

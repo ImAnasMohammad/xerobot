@@ -30,12 +30,19 @@ const Features = () => {
     ]
 
     return (
-        <Box maxWidth={'1200px'} mx={'auto'} pb={10}>
-            <Text fontSize={'5xl'} textAlign={'center'} mb={'10'} color={'#fff'}>Features</Text>
-            <Stack direction="row" wrap="wrap" justifyContent={'center'} gap={20} px={10}>
+        <Box maxWidth={'1200px'} mx={'auto'} pb={10} pt={20}>
+            <Text fontSize={'5xl'} textAlign={'center'} mb={14} >Features</Text>
+            <div 
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: '20px',
+                    padding: '0 20px'
+                }}
+            >
                 <For each={features}>
                     {(feature) => (
-                    <Card.Root width="320px" variant={"elevated"} key={feature.heading}>
+                    <Card.Root width="100%" variant={"elevated"} key={feature.heading}>
                         <Card.Body gap="2">
                             <Text fontSize={'6xl'} mb={'6'}>
                                 {
@@ -53,7 +60,7 @@ const Features = () => {
                     </Card.Root>
                     )}
                 </For>
-            </Stack>
+            </div>
         </Box>
     )
 }

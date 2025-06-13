@@ -82,9 +82,6 @@ const FooterHead = () => {
         <Flex
             flexDirection={'column'}
         >
-            {/* <Box width={'200px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                <LogoContainer />
-            </Box> */}
             <Flex flexDir={'column'} padding={'20px 30px'} gap={10} alignItems={'flex-start'}>
                 <FooterItems heading={'Address'} items={addressItems}/>
                 <Flex flexDir={'column'} gap={2}>
@@ -107,12 +104,15 @@ const FooterHead = () => {
 
 
 const FooterItems = ({ heading, items }) => {
+    const headingColor = useColorModeValue('black', 'white');
+    const textColor = useColorModeValue('gray.500', 'gray.500');
+    const textHoverColor = useColorModeValue('gray.700', 'gray.400');
     return (
         <Flex flexDir={'column'} gap={2}>
-            <Text fontSize="xl" fontWeight="medium" color={useColorModeValue('black', 'white')}>
+            <Text fontSize="xl" fontWeight="medium" color={headingColor}>
                 {heading}
             </Text>
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm">
                 <Flex flexDir={'column'} gap={2} as={'span'}>
                     {
                         items && items.map((item, index) => (
@@ -127,8 +127,9 @@ const FooterItems = ({ heading, items }) => {
                             >
                                 <Text 
                                     as={'span'}
+                                    color={textColor}
                                     _hover={{
-                                        color: useColorModeValue('black', 'white')
+                                        color: textHoverColor
                                     }}
                                 >
                                     {
@@ -179,6 +180,9 @@ const FooterTail = () => {
 
 
 const CustomLink = ({ href, children }) => {
+    const textColor = useColorModeValue('gray.500', 'gray.500');
+    const textHoverColor = useColorModeValue('gray.700', 'gray.400');
+    
     return (
         <Link
             href={href}
@@ -187,7 +191,14 @@ const CustomLink = ({ href, children }) => {
                 textDecoration: 'none',
             }}
         >
-            {children}
+            <Text as={'span'}
+                color={textColor}
+                _hover={{
+                    color: textHoverColor
+                }}
+            >
+                {children}
+            </Text>
         </Link>
     )
 }

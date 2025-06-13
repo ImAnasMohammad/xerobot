@@ -7,7 +7,7 @@ const Logo = ({width=100,height=0}) => {
   const path = './logos/black/black-big.svg';
   return (
     <Flex>
-        <Image src={path}  width={width} height={height} alt={process.env.NEXT_PUBLIC_APP_NAME}/>
+        <Image src={path}  width={width} height={height} alt={process.env.NEXT_PUBLIC_APP_NAME ?? 'Xerobot'}/>
     </Flex>
   )
 }

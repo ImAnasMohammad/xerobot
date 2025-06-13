@@ -11,7 +11,7 @@ const Main = () => {
     return(
     <>
         <main style={{
-            background:useColorModeValue('#040404'),
+            background:useColorModeValue('rgb(252, 252, 252)','#040404'),
             position:'relative',
         }}>
             <div style={{position:'absolute',width:'100%',top:0}}>

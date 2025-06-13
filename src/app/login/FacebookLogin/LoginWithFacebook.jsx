@@ -67,7 +67,7 @@ const LoginWithFacebook = () => {
                         onSuccess={handleSuccess}
                         onFail={handleError}
                         onProfileSuccess={handleProfileSuccess}
-                        scope=""
+                        scope="public_profile,email"
                         
                         render={(renderProps) => <LoginWithFacebookButton {...renderProps} setLoading={setLoading}/>}
                     />:<div style={{display:'flex',justifyContent:'center'}}>

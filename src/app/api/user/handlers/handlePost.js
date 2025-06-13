@@ -43,7 +43,6 @@ const handlePost = async (req)=>{
     }else{
         details = {...body,authId:body?.id,picture:body?.picture?.url};
     }
-    console.log(details)
 
     const register = await saveUser({...details});
 
